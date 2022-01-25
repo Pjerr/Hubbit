@@ -1,0 +1,13 @@
+h1 {
+  text-align: center;
+}
+.input-group {
+  width: 30%;
+}
+.toggleRegisterButton {
+  &:hover {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
