@@ -16,8 +16,13 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     console.log('LOGGING OUT');
-    localStorage.setItem('loginState', 'false');
-    this.store.dispatch(CommonActions.login({ loginStatus: false }));
-    this.router.navigate(['']);
+    const state = localStorage.getItem('loginState');
+    if (state === 'true') {
+      localStorage.clear();
+      this.store.dispatch(
+        CommonActions.toggleLoginStatus({ loginStatus: false })
+      );
+      this.router.navigate(['']);
+    }
   }
 }

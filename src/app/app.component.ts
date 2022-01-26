@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { AppState } from './store/app.state';
 import * as CommonSelectors from './store/common/common.selectors';
 
@@ -25,6 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
     } else {
       this.store
         .select(CommonSelectors.selectIsLoggedIn)
+        .pipe(takeUntil(this.destroy$))
         .subscribe((loginState) => {
           this.userLoggedIn = loginState;
         });

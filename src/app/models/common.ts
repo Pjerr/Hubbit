@@ -1,6 +1,6 @@
-import { UserForStore } from './user/user-for-store';
+import { UserDto } from './user/userDto';
 
 export interface Common {
   isLoggedIn: boolean;
-  user: UserForStore;
+  currentUser: UserDto;
 }

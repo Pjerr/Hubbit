@@ -13,15 +13,15 @@ import { ChatListComponent } from './components/chat/chat-list/chat-list.compone
 import { ChatUsersListComponent } from './components/chat/chat-users-list/chat-users-list.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { StoreModule } from '@ngrx/store';
-import { commonReducer } from './store/common/common.reducer';
 import { environment } from 'src/environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { commonReducer } from './store/common/common.reducer';
+import { CommonEffects } from './store/common/common.effects';
 
 @NgModule({
   declarations: [
@@ -39,6 +39,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
@@ -55,7 +56,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
         },
       }
     ),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([CommonEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [],

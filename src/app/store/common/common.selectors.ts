@@ -12,7 +12,7 @@ export const selectIsLoggedIn = createSelector(
   (state: CommonState) => state.isLoggedIn
 );
 
-export const selectCurrentUser = createSelector(
+export const selectCurrentUserID = createSelector(
   selectCommonFeature,
-  (state: CommonState) => state.user
+  (state: CommonState) => state.currentUserID
 );
