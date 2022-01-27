@@ -20,7 +20,7 @@ export class ChatListComponent implements OnInit {
     },
     {
       id: 2,
-      person: 'Teodora kalezic',
+      person: 'Teodora Kalezic',
       lastMessage: 'Ja sam smrda',
       profilePicture: '../../../../assets/user-avatar.png',
     },

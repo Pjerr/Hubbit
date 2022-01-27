@@ -23,6 +23,7 @@ import { StoreModule } from '@ngrx/store';
 import { commonReducer } from './store/common/common.reducer';
 import { CommonEffects } from './store/common/common.effects';
 import { ChatThumbComponent } from './components/chat/chat-thumb/chat-thumb.component';
+import { MessageComponent } from './components/chat/message/message.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ChatThumbComponent } from './components/chat/chat-thumb/chat-thumb.comp
     ChatUsersListComponent,
     UserSettingsComponent,
     ChatThumbComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,
