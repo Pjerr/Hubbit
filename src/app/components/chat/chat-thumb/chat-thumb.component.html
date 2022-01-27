@@ -1,0 +1,14 @@
+<div class="chat-thumb" *ngIf="chat" (click)="showChat(chat)">
+  <div class="person-image">
+    <img
+      [src]="chat.profilePicture"
+      alt="IMG"
+      class="img img-fluid profile-pic"
+    />
+  </div>
+  <div class="chat-content">
+    <div class="person-name">
+      <h3>{{ chat.person }}</h3>
+    </div>
+  </div>
+</div>

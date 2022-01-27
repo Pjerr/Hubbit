@@ -22,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { commonReducer } from './store/common/common.reducer';
 import { CommonEffects } from './store/common/common.effects';
+import { ChatThumbComponent } from './components/chat/chat-thumb/chat-thumb.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { CommonEffects } from './store/common/common.effects';
     ChatListComponent,
     ChatUsersListComponent,
     UserSettingsComponent,
+    ChatThumbComponent,
   ],
   imports: [
     BrowserModule,
