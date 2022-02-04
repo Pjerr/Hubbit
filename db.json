@@ -3,16 +3,14 @@
     {
       "id": 1,
       "username": "pera.peric",
-      "name": "Pera",
-      "surname": "Peric",
+      "fullName": "Pera Peric",
       "password": "pass123",
       "email": "pera.peric@gmail.com"
     },
     {
       "id": 2,
       "username": "mika.mikic",
-      "name": "Mika",
-      "surname": "Mikic",
+      "fullName": "Mika Mikic",
       "password": "pass123",
       "email": "mika.mikic@gmail.com"
     }

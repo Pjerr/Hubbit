@@ -1,0 +1,32 @@
+<div class="wrap">
+  <h2 class="main-title">Welcome [insert name here]!</h2>
+  <h3>These are your recommendations!</h3>
+  <div class="recommendations">
+    <!--NIZ[i] se samo prikazuje-->
+    <div class="card">
+      <img
+        src="../../../assets/user-avatar.png"
+        class="card-img-top"
+        alt="image"
+      />
+      <div class="card-body">
+        <h2 class="card-title">Petar Milisavljevic, 22</h2>
+        <h4>About me:</h4>
+        <p class="card-text">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. At pariatur
+          explicabo ea accusamus vitae molestiae nisi, veniam ex exercitationem
+          totam tempore dignissimos sapiente?
+        </p>
+        <p class="card-text">From: Nis, Serbia</p>
+        <div class="card-buttons">
+          <button class="btn btn-danger" (click)="likePerson()">
+            <i class="fas fa-heart"></i>
+          </button>
+          <button class="btn btn-secondary" (click)="nextPerson()">
+            <i class="far fa-times-circle"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

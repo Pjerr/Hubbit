@@ -1,34 +1,7 @@
 <div class="container">
   <h1>Welcome to Hubbit!</h1>
   <div class="login-box" *ngIf="!clickedOnToggleRegister">
-    <form (ngSubmit)="login()" [formGroup]="loginForm">
-      <h3>Login here</h3>
-
-      <div class="input-group mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Username"
-          formControlName="username"
-        />
-      </div>
-
-      <div class="input-group mb-3">
-        <input
-          type="password"
-          class="form-control"
-          placeholder="Password"
-          formControlName="password"
-        />
-      </div>
-      <button
-        class="btn btn-success btn-submit"
-        [disabled]="!loginForm.valid"
-        type="submit"
-      >
-        <i class="fas fa-sign-in-alt"></i>
-      </button>
-    </form>
+    <app-login (loginEmmiter)="login($event)"></app-login>
     <p>
       Dont have an account? Click
       <span class="toggleRegisterButton" (click)="toggleResiterForm()"
@@ -37,61 +10,7 @@
     </p>
   </div>
   <div class="register-box" *ngIf="clickedOnToggleRegister">
-    <form (ngSubmit)="register()" [formGroup]="registerForm">
-      <h3>Register here</h3>
-
-      <div class="input-group mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Username"
-          formControlName="username"
-        />
-      </div>
-
-      <div class="input-group mb-3">
-        <input
-          type="password"
-          class="form-control"
-          placeholder="Password"
-          formControlName="password"
-        />
-      </div>
-
-      <div class="input-group mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Email"
-          formControlName="email"
-        />
-      </div>
-
-      <div class="input-group mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Name"
-          formControlName="name"
-        />
-      </div>
-
-      <div class="input-group mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Surname"
-          formControlName="surname"
-        />
-      </div>
-      <button
-        class="btn btn-success btn-submit"
-        type="submit"
-        [disabled]="!registerForm.valid"
-      >
-        <i class="fas fa-sign-in-alt"></i>
-      </button>
-    </form>
+    <app-register></app-register>
     <p>
       Already have an account? Click
       <span class="toggleRegisterButton" (click)="toggleResiterForm()"

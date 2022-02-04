@@ -11,3 +11,16 @@ h1 {
     text-decoration: underline;
   }
 }
+
+.userDetailsForm {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-checkbox {
+  margin-right: 5px;
+}
+
+.registerButtons {
+  margin-top: 10px;
+}

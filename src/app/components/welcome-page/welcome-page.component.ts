@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
@@ -18,27 +18,18 @@ import * as CommonSelectors from '../../store/common/common.selectors';
 })
 export class WelcomePageComponent implements OnInit, OnDestroy {
   constructor(
-    private router: Router,
     private toastrService: ToastrService,
     private store: Store<AppState>,
-    private userService: UserService
+    private router: Router
   ) {}
 
   destroy$: Subject<boolean> = new Subject();
-  clickedOnToggleRegister: boolean = false;
+  clickedOnToggleRegister: boolean = true;
 
-  loginForm: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-  });
-
-  registerForm: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-    email: new FormControl(''),
-    name: new FormControl(''),
-    surname: new FormControl(''),
-  });
+  //WORK IN PROGRESS
+  interestsArray: string[] = [];
+  turnOnsArray: string[] = [];
+  turnOffsArray: string[] = [];
 
   ngOnInit(): void {}
 
@@ -47,31 +38,24 @@ export class WelcomePageComponent implements OnInit, OnDestroy {
     this.destroy$.unsubscribe();
   }
 
-  //stavio sam timeout zato sto bez njega prvo posalje -1, pa onda tek vrednost pravu za usera, ne znam zasto
-  //TODO: try to fix
-  login() {
-    const dataForLogin: UserLoginDto = {
-      username: this.loginForm.value.username,
-      password: this.loginForm.value.password,
-    };
-    this.store.dispatch(CommonActions.login({ userLoginDto: dataForLogin }));
-    setTimeout(() => {
-      this.store
-        .select(CommonSelectors.selectCurrentUserID)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((userID: number) => {
-          localStorage.setItem('userID', userID.toString());
-          localStorage.setItem('loginState', 'true');
-          this.router.navigate(['/user/posts']);
-        });
-    }, 100);
-  }
-
-  register() {
-    console.log('REGISTERING');
-  }
-
   toggleResiterForm() {
     this.clickedOnToggleRegister = !this.clickedOnToggleRegister;
+  }
+
+  login(userLoginDto: UserLoginDto) {
+    console.log(userLoginDto);
+    //API CALL ZA LOGIN, MOZDA NECEMO DA RADIMO SA STORE NA KRAJU
+    // this.store.dispatch(CommonActions.login({ userLoginDto: dataForLogin }));
+    // setTimeout(() => {
+    //   this.store
+    //     .select(CommonSelectors.selectCurrentUserID)
+    //     .pipe(takeUntil(this.destroy$))
+    //     .subscribe((userID: number) => {
+    //       localStorage.setItem('userID', userID.toString());
+    //       localStorage.setItem('loginState', 'true');
+    //       this.router.navigate(['/user/main']);
+    //     });
+    // }, 100);
+    this.router.navigate(['user/main']);
   }
 }
