@@ -55,7 +55,7 @@ db.getCollection('users_visit_profile_view').createIndex(
   },
   {
       name: "idx_username",
-      unique: false
+      unique: true
   }
 )
 
@@ -66,7 +66,7 @@ db.getCollection('users_algorithm_view').createIndex(
   },
   {
       name: "idx_username",
-      unique: false
+      unique: true
   }
 )
 
@@ -87,7 +87,7 @@ db.getCollection('users_credentials_view').createIndex(
   },
   {
       name: "idx_username",
-      unique: false
+      unique: true
   }
 )
 
@@ -98,6 +98,6 @@ db.getCollection('users_relationships_view').createIndex(
   },
   {
       name: "idx_username",
-      unique: false
+      unique: true
   }
 )
