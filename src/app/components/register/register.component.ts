@@ -22,6 +22,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject();
 
+  //TODO: Validators.required
   registerFormUserDetails: FormGroup = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
@@ -38,28 +39,21 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   registerFormUserPreferences: FormGroup = new FormGroup({});
 
-  toggleChecked(
-    checked: boolean,
-    category: string,
-    interestName: string,
-    listToAddTo: string
-  ) {
+  toggleChecked(checked: boolean, interestName: string, listToAddTo: string) {
     switch (listToAddTo) {
       case 'offs': {
-        if (checked)
-          this.handleAddToList(this.listOfTurnOffs, category, interestName, 2);
+        if (checked) this.handleAddToList(this.listOfTurnOffs, interestName, 2);
         else this.handleRemoveFromList(this.listOfInterests, interestName);
         break;
       }
       case 'ons': {
-        if (checked)
-          this.handleAddToList(this.listOfTurnOns, category, interestName, 2);
+        if (checked) this.handleAddToList(this.listOfTurnOns, interestName, 2);
         else this.handleRemoveFromList(this.listOfTurnOns, interestName);
         break;
       }
       case 'int': {
         if (checked)
-          this.handleAddToList(this.listOfInterests, category, interestName, 3);
+          this.handleAddToList(this.listOfInterests, interestName, 3);
         else this.handleRemoveFromList(this.listOfInterests, interestName);
         break;
       }
@@ -74,7 +68,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   handleAddToList(
     list: Interest[],
-    category: string,
     interestName: string,
     maxNumberOfItemsInList: number
   ): boolean {
@@ -83,7 +76,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       return false;
     }
     const interestToAdd: Interest = {
-      category,
       name: interestName,
     };
     list.push(interestToAdd);

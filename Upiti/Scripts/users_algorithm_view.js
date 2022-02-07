@@ -686,7 +686,7 @@ db.getCollection('users_algorithm_views').insertMany(
 
 //INDEXI:
 
-db.getCollection('users_algorithm_view').createIndex(
+db.getCollection('users_algorithm_views').createIndex(
 
   {
 

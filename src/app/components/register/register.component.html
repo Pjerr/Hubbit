@@ -36,99 +36,50 @@
   <mat-step label="Fill out your turn ons">
     <h2>Please pick 2 turn ons</h2>
     <section class="example-section">
-      <h3>Music</h3>
       <mat-checkbox
         class="example-margin"
-        (change)="toggleChecked($event.checked, 'music', 'rock', 'ons')"
+        (change)="toggleChecked($event.checked, 'music', 'ons')"
         [disabled]="
           listOfTurnOns.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOns, 'rock')
+          shouldDisableCheckbox(listOfTurnOns, 'music')
         "
-        >Rock</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'music', 'pop', 'ons')"
-        [disabled]="
-          listOfTurnOns.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOns, 'pop')
-        "
-        >Pop</mat-checkbox
+        >Music</mat-checkbox
       >
     </section>
     <hr />
     <section class="example-section">
-      <h3>Sports</h3>
       <mat-checkbox
         class="example-margin"
-        (change)="toggleChecked($event.checked, 'sports', 'football', 'ons')"
+        (change)="toggleChecked($event.checked, 'sports', 'ons')"
         [disabled]="
           listOfTurnOns.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOns, 'football')
+          shouldDisableCheckbox(listOfTurnOns, 'sports')
         "
-        >Football</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'sports', 'basketball', 'ons')"
-        [disabled]="
-          listOfTurnOns.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOns, 'basketball')
-        "
-        >Basketball</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'sports', 'baseball', 'ons')"
-        [disabled]="
-          listOfTurnOns.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOns, 'baseball')
-        "
-        >Baseball</mat-checkbox
+        >Sports</mat-checkbox
       >
     </section>
     <hr />
     <section class="example-section">
-      <h3>Books</h3>
       <mat-checkbox
         class="example-margin"
-        (change)="toggleChecked($event.checked, 'books', 'scientific', 'ons')"
+        (change)="toggleChecked($event.checked, 'books', 'ons')"
         [disabled]="
           listOfTurnOns.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOns, 'scientific')
+          shouldDisableCheckbox(listOfTurnOns, 'books')
         "
-        >Scientific</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'books', 'fiction', 'ons')"
-        [disabled]="
-          listOfTurnOns.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOns, 'fiction')
-        "
-        >Fiction</mat-checkbox
+        >Books</mat-checkbox
       >
     </section>
     <hr />
     <section class="example-section">
-      <h3>Movies</h3>
       <mat-checkbox
         class="example-margin"
-        (change)="toggleChecked($event.checked, 'movies', 'western', 'ons')"
+        (change)="toggleChecked($event.checked, 'movies', 'ons')"
         [disabled]="
           listOfTurnOns.length === 2 &&
           shouldDisableCheckbox(listOfTurnOns, 'western')
         "
-        >Western</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'movies', 'horror', 'ons')"
-        [disabled]="
-          listOfTurnOns.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOns, 'horror')
-        "
-        >Horror</mat-checkbox
+        >Movies</mat-checkbox
       >
     </section>
     <hr />
@@ -142,97 +93,48 @@
   <mat-step label="Fill out your turn offs">
     <h2>Please pick 2 turn offs</h2>
     <section class="example-section">
-      <h3>Music</h3>
       <mat-checkbox
         class="example-margin"
-        (change)="toggleChecked($event.checked, 'music', 'rock', 'offs')"
+        (change)="toggleChecked($event.checked, 'music', 'offs')"
         [disabled]="
           listOfTurnOffs.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOffs, 'rock')
+          shouldDisableCheckbox(listOfTurnOffs, 'music')
         "
-        >Rock</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'music', 'pop', 'offs')"
-        [disabled]="
-          listOfTurnOffs.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOffs, 'pop')
-        "
-        >Pop</mat-checkbox
+        >Music</mat-checkbox
       >
     </section>
     <hr />
     <section class="example-section">
-      <h3>Sports</h3>
       <mat-checkbox
         class="example-margin"
-        (change)="toggleChecked($event.checked, 'sports', 'football', 'offs')"
+        (change)="toggleChecked($event.checked, 'sports', 'offs')"
         [disabled]="
           listOfTurnOffs.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOffs, 'football')
+          shouldDisableCheckbox(listOfTurnOffs, 'sports')
         "
-        >Football</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'sports', 'basketball', 'offs')"
-        [disabled]="
-          listOfTurnOffs.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOffs, 'basketball')
-        "
-        >Basketball</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'sports', 'baseball', 'offs')"
-        [disabled]="
-          listOfTurnOffs.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOffs, 'baseball')
-        "
-        >Baseball</mat-checkbox
+        >Sports</mat-checkbox
       >
     </section>
     <hr />
     <section class="example-section">
-      <h3>Books</h3>
       <mat-checkbox
         class="example-margin"
-        (change)="toggleChecked($event.checked, 'books', 'scientific', 'offs')"
+        (change)="toggleChecked($event.checked, 'books', 'offs')"
         [disabled]="
           listOfTurnOffs.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOffs, 'scientific')
+          shouldDisableCheckbox(listOfTurnOffs, 'books')
         "
-        >Scientific</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'books', 'fiction', 'offs')"
-        [disabled]="
-          listOfTurnOffs.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOffs, 'fiction')
-        "
-        >Fiction</mat-checkbox
+        >Books</mat-checkbox
       >
     </section>
     <hr />
     <section class="example-section">
-      <h3>Movies</h3>
       <mat-checkbox
         class="example-margin"
-        (change)="toggleChecked($event.checked, 'movies', 'western', 'offs')"
+        (change)="toggleChecked($event.checked, 'movies', 'offs')"
         [disabled]="
           listOfTurnOffs.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOffs, 'western')
-        "
-        >Western</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'movies', 'horror', 'offs')"
-        [disabled]="
-          listOfTurnOffs.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOffs, 'horror')
+          shouldDisableCheckbox(listOfTurnOffs, 'movies')
         "
         >Horror</mat-checkbox
       >
@@ -253,99 +155,50 @@
     <!--OVDE IDU MOJA INTERESOVANJA, TURN ONS I TURN OFFS, UZMES PRVO SVE IZ BAZE I ONDA OVDE NAPRAVIS FORMU-->
     <!--NADJI NACIN DA LEPO ODRADIS SELEKTOVANJE-->
     <section class="example-section">
-      <h3>Music</h3>
       <mat-checkbox
         class="example-margin"
-        (change)="toggleChecked($event.checked, 'music', 'rock', 'int')"
+        (change)="toggleChecked($event.checked, 'music', 'int')"
         [disabled]="
           listOfInterests.length === 3 &&
-          shouldDisableCheckbox(listOfInterests, 'rock')
+          shouldDisableCheckbox(listOfInterests, 'music')
         "
-        >Rock</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'music', 'pop', 'int')"
-        [disabled]="
-          listOfInterests.length === 3 &&
-          shouldDisableCheckbox(listOfInterests, 'pop')
-        "
-        >Pop</mat-checkbox
+        >Music</mat-checkbox
       >
     </section>
     <hr />
     <section class="example-section">
-      <h3>Sports</h3>
       <mat-checkbox
         class="example-margin"
-        (change)="toggleChecked($event.checked, 'sports', 'football', 'int')"
+        (change)="toggleChecked($event.checked, 'sports', 'int')"
         [disabled]="
           listOfInterests.length === 3 &&
-          shouldDisableCheckbox(listOfInterests, 'pop')
+          shouldDisableCheckbox(listOfInterests, 'sports')
         "
-        >Football</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'sports', 'basketball', 'int')"
-        [disabled]="
-          listOfInterests.length === 3 &&
-          shouldDisableCheckbox(listOfInterests, 'basketball')
-        "
-        >Basketball</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'sports', 'baseball', 'int')"
-        [disabled]="
-          listOfInterests.length === 3 &&
-          shouldDisableCheckbox(listOfInterests, 'baseball')
-        "
-        >Baseball</mat-checkbox
+        >Sports</mat-checkbox
       >
     </section>
     <hr />
     <section class="example-section">
-      <h3>Books</h3>
       <mat-checkbox
         class="example-margin"
-        (change)="toggleChecked($event.checked, 'books', 'scientific', 'int')"
+        (change)="toggleChecked($event.checked, 'books', 'int')"
         [disabled]="
           listOfInterests.length === 3 &&
-          shouldDisableCheckbox(listOfInterests, 'scientific')
+          shouldDisableCheckbox(listOfInterests, 'books')
         "
-        >Scientific</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'books', 'fiction', 'int')"
-        [disabled]="
-          listOfInterests.length === 3 &&
-          shouldDisableCheckbox(listOfInterests, 'fiction')
-        "
-        >Fiction</mat-checkbox
+        >Books</mat-checkbox
       >
     </section>
     <hr />
     <section class="example-section">
-      <h3>Movies</h3>
       <mat-checkbox
         class="example-margin"
-        (change)="toggleChecked($event.checked, 'movies', 'western', 'int')"
+        (change)="toggleChecked($event.checked, 'movies', 'int')"
         [disabled]="
           listOfInterests.length === 3 &&
-          shouldDisableCheckbox(listOfInterests, 'western')
+          shouldDisableCheckbox(listOfInterests, 'movies')
         "
-        >Western</mat-checkbox
-      >
-      <mat-checkbox
-        class="example-margin"
-        (change)="toggleChecked($event.checked, 'movies', 'horror', 'int')"
-        [disabled]="
-          listOfInterests.length === 3 &&
-          shouldDisableCheckbox(listOfInterests, 'horror')
-        "
-        >Horror</mat-checkbox
+        >Movies</mat-checkbox
       >
     </section>
     <hr />
