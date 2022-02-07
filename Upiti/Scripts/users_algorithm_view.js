@@ -1,10 +1,10 @@
-db.getCollection('users_algorithm_view').find({})
+db.getCollection('users_algorithm_views').find({})
 
 
 
 //DML:
 
-db.getCollection('users_algorithm_view').insertMany(
+db.getCollection('users_algorithm_views').insertMany(
 
     [
 
@@ -706,7 +706,7 @@ db.getCollection('users_algorithm_view').createIndex(
 
 
 
-db.getCollection('users_algorithm_view').createIndex(
+db.getCollection('users_algorithm_views').createIndex(
 
   {
 
