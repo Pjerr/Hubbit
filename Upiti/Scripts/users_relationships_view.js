@@ -1,10 +1,10 @@
-db.getCollection('users_relationships_view').find({})
+db.getCollection('users_relationships_views').find({})
 
 
 
 //DML:
 
-db.getCollection('users_relationships_view').insertMany(
+db.getCollection('users_relationships_views').insertMany(
 
     [
 
@@ -462,7 +462,7 @@ db.getCollection('users_relationships_view').insertMany(
 
 //INDEXI:
 
-db.getCollection('users_relationships_view').createIndex(
+db.getCollection('users_relationships_views').createIndex(
 
   {
 

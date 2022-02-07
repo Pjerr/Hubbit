@@ -1,10 +1,10 @@
-db.getCollection('users_visit_profile_view').find({})
+db.getCollection('users_visit_profile_views').find({})
 
 
 
 //DML:
 
-db.getCollection('users_visit_profile_view').insertMany(
+db.getCollection('users_visit_profile_views').insertMany(
 
     [
 
@@ -910,7 +910,7 @@ db.getCollection('users_visit_profile_view').insertMany(
 
 //INDEXI:
 
-db.getCollection('users_visit_profile_view').createIndex(
+db.getCollection('users_visit_profile_views').createIndex(
 
   {
 
