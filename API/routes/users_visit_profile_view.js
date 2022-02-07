@@ -26,7 +26,7 @@ router.post("/createNewUserProfileView",(req,res)=>{
     UserVisitsProfileModel.create(req.body,(err,newUser)=>{
         if(err)
         {
-             res.status(500).send("user creation failed");
+             res.status(500).send('user creation failed ' + err);
         }
         else {
             res.status(200).send(newUser);
@@ -39,7 +39,7 @@ router.put("/updateUserProfile", (req,res)=>{
     UserVisitsProfileModel.updateOne({username : req.body.username}, {aboutMe : req.body.aboutMe}, (err,result)=>{
         if(err)
         {
-             res.status(500).send("user update failed");
+             res.status(500).send('user update failed ' + err);
         }
         else {
             res.status(200).send(result);
@@ -53,7 +53,7 @@ router.delete("/deleteUser", (req,res)=>{
     UserVisitsProfileModel.deleteOne({username : req.query.username}, (err,result)=>{
         if(err)
         {
-            res.status(500).send('Delete of user failed');
+            res.status(500).send('Delete of user failed ' + err);
         }
         else{
             res.status(200).send('Delete successful');
