@@ -35,7 +35,12 @@ import { CommonEffects } from './store/common/common.effects';
 import { environment } from 'src/environments/environment';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
+const socketConfig: SocketIoConfig = {
+  url: environment.socketURL,
+  options: {},
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,6 +87,7 @@ import { RegisterComponent } from './components/register/register.component';
     ),
     EffectsModule.forRoot([CommonEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    SocketIoModule.forRoot(socketConfig),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -2,79 +2,77 @@
 //pretpostavka da ces da budes na 3000 port na frontendu
 
 const io = require("socket.io")(8900, {
-    cors:{
-        origin:"http://localhost:3000"
-    }
+  cors: {
+    origin: "http://localhost:4200",
+  },
 });
 
 let users = [];
 
-const addUser = (username, socketId)=>{
-    !users.some(user=>user.username === username) && users.push({username,socketId});
-}
+const addUser = (username, socketId) => {
+  !users.some((user) => user.username === username) &&
+    users.push({ username, socketId });
+};
 
+const removeUser = (socketId) => {
+  users = users.filter((user) => user.socketId != socketId);
+};
 
-const removeUser = (socketId)=>{
-    users = users.filter(user => user.socketId != socketId);
-}
+const getUser = (username) => {
+  return users.find((user) => user.username === username);
+};
 
-const getUser = (username)=>{
-    return users.find(user=> user.username === username);
-}
+io.on("connection", (socket) => {
+  console.log("New user has connected to Socket.io server...");
+  //Sta ovo znaci? Emit je fja koja radi broadcast svim klijentima
+  //prikacenim na Socket io server,
+  //prvi parametar je ime eventa koji salje server klijentima
+  //tako ce klijent da zna koji event mu je stigao i da ih razlikuje
+  //drugi parametar je samo poruka tj. data koji se prenosi tokom eventa
 
-io.on("connection", (socket)=>{
-    console.log("New user has connected to Socket.io server...");
-    //Sta ovo znaci? Emit je fja koja radi broadcast svim klijentima
-    //prikacenim na Socket io server,
-    //prvi parametar je ime eventa koji salje server klijentima
-    //tako ce klijent da zna koji event mu je stigao i da ih razlikuje
-    //drugi parametar je samo poruka tj. data koji se prenosi tokom eventa
+  io.emit("welcome", "Welcome to hubbit");
 
-    io.emit("welcome", "Welcome to hubbit");
+  //da bih ja mogao da kazem io.to(socketID), moram da znam koji je socket id
+  //tj. moram da vezem socket iD za klijenta
+  //to dolazi sa frontend
+  //klijent salje serveru event ("addUser", username) recimo
 
-    //da bih ja mogao da kazem io.to(socketID), moram da znam koji je socket id
-    //tj. moram da vezem socket iD za klijenta
-    //to dolazi sa frontend
-    //klijent salje serveru event ("addUser", username) recimo
+  //USER CONNECTS TO SERVER
+  socket.on("addUser", (username) => {
+    addUser(username, socket.id);
+    io.emit("getUsers", users); //ti ovo na frontu uhvatis kao getUsersEvent i tad okines API call
+    // dohvatis sve connected userse iz mongo liste za date korisnike
+  }); //isto API call u conversation rutu, dohvatis sve conversation gde se pominje ovaj korisnik
 
-    //USER CONNECTS TO SERVER
-    socket.on("addUser", username =>{
-        addUser(username, socket.id);
-        io.emit("getUsers", users);   //ti ovo na frontu uhvatis kao getUsersEvent i tad okines API call 
-                                      // dohvatis sve connected userse iz mongo liste za date korisnike
-    })                                //isto API call u conversation rutu, dohvatis sve conversation gde se pominje ovaj korisnik
+  //users je lista korisnika koji su trenutno aktivni tj. na app su
+  //ti na frontu u local storage imas username tren korisnika
+  //ja ti vratim listu ljudi koja je trenutno aktivna
+  //ti ces da uzmes one ljude sa kojim trenutni korisnik komunicira
+  //i da dohvatis one koji se iz te liste nalaze u listi korisnika
+  //koji su trenutno aktivni
 
-                                    //users je lista korisnika koji su trenutno aktivni tj. na app su
-                                    //ti na frontu u local storage imas username tren korisnika
-                                    //ja ti vratim listu ljudi koja je trenutno aktivna
-                                    //ti ces da uzmes one ljude sa kojim trenutni korisnik komunicira
-                                    //i da dohvatis one koji se iz te liste nalaze u listi korisnika
-                                    //koji su trenutno aktivni
+  //kad se izlsitaju svi korisnici sa kojim razgovara, na klik na neki od njih
+  //trebalo bi da ode jedan API call ka conversation ruti da se dohvati konkretran razgovor
+  //izmedju dva korisnika
 
+  //SEND AND RECEIVE MESSAGE
+  //saljes mi event sendMessage koji ima senderUsername, receiverUsername i tekst poruke
+  //ja hvatam taj event, nalazim socket receivera i samo njemu saljem event getMessage
+  //sa parametrima ko salje i tekstom poruke
+  //ti ces da hvatas getMessage event kad stigne i da prikazes poruku koja je stigla
+  //za datog korisnika
+  //takodje, da uhvatis ovaj getMessage event, pravis novu poruku tj. objekat i
+  //salje se API CALL mongu da napravi novu poruku u bazi
+  //proveri se da li trenutni convo na frontendu sadrzi ovog ko saljes poruku, da se ne prikaze
+  //u pogresan chat
+  socket.on("sendMessage", ({ senderUsername, receiverUsername, text }) => {
+    const user = getUser(receiverUsername);
+    io.to(user.socketId).emit("getMessage", { senderUsername, text });
+  });
 
-                                     //kad se izlsitaju svi korisnici sa kojim razgovara, na klik na neki od njih
-                                    //trebalo bi da ode jedan API call ka conversation ruti da se dohvati konkretran razgovor
-                                    //izmedju dva korisnika
-
-    //SEND AND RECEIVE MESSAGE
-    //saljes mi event sendMessage koji ima senderUsername, receiverUsername i tekst poruke
-    //ja hvatam taj event, nalazim socket receivera i samo njemu saljem event getMessage
-    //sa parametrima ko salje i tekstom poruke
-    //ti ces da hvatas getMessage event kad stigne i da prikazes poruku koja je stigla
-    //za datog korisnika
-    //takodje, da uhvatis ovaj getMessage event, pravis novu poruku tj. objekat i 
-    //salje se API CALL mongu da napravi novu poruku u bazi
-    //proveri se da li trenutni convo na frontendu sadrzi ovog ko saljes poruku, da se ne prikaze
-    //u pogresan chat
-    socket.on("sendMessage", ({senderUsername, receiverUsername, text})=>{
-        const user = getUser(receiverUsername);
-        io.to(user.socketId).emit("getMessage", {senderUsername,text});
-    })
-
-    //USER DISCONNECTS TO SERVER
-    socket.on("disconnect", ()=>{
-        removeUser(socket.id);
-        io.emit("getUsers", users);
-    })
-})
-
+  //USER DISCONNECTS TO SERVER
+  socket.on("disconnect", () => {
+    removeUser(socket.id);
+    io.emit("getUsers", users);
+  });
+});
