@@ -1,8 +1,18 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require('path');
+const cors = require('cors');
+
+
+var dir = path.join(__dirname);
+
+const corsOptions = {
+    origin:'http://localhost:3000'
+}
+
 const app = express();
 const rootRouter = express.Router();
-
+app.use(cors(corsOptions));
 const UsersVisitProfileRouter = require('./routes/users_visit_profile_view');
 const ConversationsRouter = require('./routes/conversation');
 const MessagesRouter = require('./routes/messages');
@@ -25,6 +35,7 @@ rootRouter.use('/usersRelationships', UserRelationships);
 rootRouter.use('/usersSearch', UserSearch);
 app.use(express.urlencoded({extended : false}));
 app.use(express.json());
+app.use(express.static(dir));
 app.use('/', rootRouter);
 
 const PORT = process.env.PORT || 5000;
