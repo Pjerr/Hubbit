@@ -11,7 +11,7 @@ import { UserLoginDto } from '../models/user/userLoginDto';
 export class UserService {
   constructor(private httpClient: HttpClient) {}
 
-  //test func
+  //test func, DELETE THE WHOLE SERVICE AFTER!
   login(userLoginDto: UserLoginDto): Observable<UserDto[]> {
     let params = new HttpParams();
     params = params.append('username', userLoginDto.username);

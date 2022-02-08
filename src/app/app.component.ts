@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
+import { UserSearchViewsService } from './services/user-search-views.service';
 import { AppState } from './store/app.state';
 import * as CommonSelectors from './store/common/common.selectors';
 
