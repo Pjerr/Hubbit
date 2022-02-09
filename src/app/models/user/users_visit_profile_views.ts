@@ -1,5 +1,4 @@
 export interface UsersVisitProfileViews {
-  id: string; //?
   username: string;
   fullName: string;
   dob: string;

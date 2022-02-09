@@ -1,5 +1,4 @@
 export interface UsersRelathionshipsViews {
-  id: string; //?
   username: string;
   listContacts: string[];
   listBlocked: string[];

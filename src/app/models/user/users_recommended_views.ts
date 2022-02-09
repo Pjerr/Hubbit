@@ -1,5 +1,4 @@
 export interface UserRecommendedViews {
-  id: string; //?
   username: string;
   dob: string;
   aboutMe: string;

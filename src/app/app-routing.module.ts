@@ -5,11 +5,13 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { SearchComponent } from './components/search/search.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
+import { AuthGuardGuard } from './services/auth-guard.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: WelcomePageComponent,
+    canActivate: [AuthGuardGuard],
   },
   {
     path: 'user',
@@ -17,18 +19,22 @@ const routes: Routes = [
       {
         path: 'main',
         component: MainPageComponent,
+        canActivate: [AuthGuardGuard],
       },
       {
         path: 'chat',
         component: ChatpageComponent,
+        canActivate: [AuthGuardGuard],
       },
       {
         path: 'settings',
         component: UserSettingsComponent,
+        canActivate: [AuthGuardGuard],
       },
       {
         path: 'search',
         component: SearchComponent,
+        canActivate: [AuthGuardGuard],
       },
     ],
   },

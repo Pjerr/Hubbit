@@ -17,15 +17,6 @@ export class UserCredentialsViewsService {
     );
   }
 
-  login(userCredentials: UsersCredentialsViews) {
-    const username = userCredentials.username;
-    const password = userCredentials.password;
-    return this.httpClient.post(`${environment.apiURL}usersCredentials/login`, {
-      username,
-      password,
-    });
-  }
-
   createNewUserCredentials(newUserCredentials: UsersCredentialsViews) {
     const passForHashing = newUserCredentials.password;
     return this.httpClient.post(

@@ -1,5 +1,4 @@
 export interface UsersAlgorithmViews {
-  id: string; //???
   username: string;
   gender: string;
   listGenders: string[];
