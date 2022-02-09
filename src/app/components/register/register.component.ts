@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { max, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Interest } from 'src/app/models/interest';
 
 @Component({
@@ -24,18 +24,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   //TODO: Validators.required
   registerFormUserDetails: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-    email: new FormControl(''),
-    name: new FormControl(''),
-    surname: new FormControl(''),
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required),
+    name: new FormControl('', Validators.required),
+    surname: new FormControl('', Validators.required),
   });
 
   listOfInterests: Interest[] = [];
   listOfTurnOns: Interest[] = [];
   listOfTurnOffs: Interest[] = [];
-
-  checkboxesTurnOnsDisabled: boolean = true;
 
   registerFormUserPreferences: FormGroup = new FormGroup({});
 
@@ -43,7 +41,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     switch (listToAddTo) {
       case 'offs': {
         if (checked) this.handleAddToList(this.listOfTurnOffs, interestName, 2);
-        else this.handleRemoveFromList(this.listOfInterests, interestName);
+        else this.handleRemoveFromList(this.listOfTurnOffs, interestName);
         break;
       }
       case 'ons': {
@@ -79,9 +77,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       name: interestName,
     };
     list.push(interestToAdd);
-    if (this.checkIfListFull(list, maxNumberOfItemsInList)) {
-      this.checkboxesTurnOnsDisabled = true;
-    } else this.checkboxesTurnOnsDisabled = false;
+    console.log(list);
     return true;
   }
 
@@ -90,11 +86,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       (interest: Interest) => interest.name === interestName
     );
     if (interestIndex != -1) list.splice(interestIndex, 1);
-  }
-
-  checkIfListFull(list: Interest[], maxNumber: number): boolean {
-    if (list.length === maxNumber) return true;
-    return false;
+    console.log(list);
   }
 
   areListsValid(): boolean {

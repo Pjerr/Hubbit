@@ -28,10 +28,6 @@ import { SearchComponent } from './components/search/search.component';
 import { ChatThumbComponent } from './components/chat/chat-thumb/chat-thumb.component';
 
 import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreModule } from '@ngrx/store';
-import { commonReducer } from './store/common/common.reducer';
-import { CommonEffects } from './store/common/common.effects';
 import { environment } from 'src/environments/environment';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -75,20 +71,6 @@ const socketConfig: SocketIoConfig = {
     MatCheckboxModule,
     FormsModule,
     ToastrModule.forRoot(),
-    StoreModule.forRoot(
-      {
-        common: commonReducer,
-      },
-      {
-        metaReducers: !environment.production ? [] : [],
-        runtimeChecks: {
-          strictActionImmutability: true,
-          strictStateImmutability: true,
-        },
-      }
-    ),
-    EffectsModule.forRoot([CommonEffects]),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
     SocketIoModule.forRoot(socketConfig),
   ],
   providers: [

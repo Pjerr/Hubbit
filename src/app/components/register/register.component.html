@@ -77,7 +77,7 @@
         (change)="toggleChecked($event.checked, 'movies', 'ons')"
         [disabled]="
           listOfTurnOns.length === 2 &&
-          shouldDisableCheckbox(listOfTurnOns, 'western')
+          shouldDisableCheckbox(listOfTurnOns, 'movies')
         "
         >Movies</mat-checkbox
       >
@@ -136,7 +136,7 @@
           listOfTurnOffs.length === 2 &&
           shouldDisableCheckbox(listOfTurnOffs, 'movies')
         "
-        >Horror</mat-checkbox
+        >Movies</mat-checkbox
       >
     </section>
     <hr />

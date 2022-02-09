@@ -11,30 +11,26 @@ const routes: Routes = [
   {
     path: '',
     component: WelcomePageComponent,
-    canActivate: [AuthGuardGuard],
   },
   {
     path: 'user',
+    canActivate: [AuthGuardGuard],
     children: [
       {
         path: 'main',
         component: MainPageComponent,
-        canActivate: [AuthGuardGuard],
       },
       {
         path: 'chat',
         component: ChatpageComponent,
-        canActivate: [AuthGuardGuard],
       },
       {
         path: 'settings',
         component: UserSettingsComponent,
-        canActivate: [AuthGuardGuard],
       },
       {
         path: 'search',
         component: SearchComponent,
-        canActivate: [AuthGuardGuard],
       },
     ],
   },

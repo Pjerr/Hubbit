@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Route, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.state';
-import * as CommonActions from '../../store/common/common.actions';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,19 +8,11 @@ import * as CommonActions from '../../store/common/common.actions';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(private router: Router, private store: Store<AppState>) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {}
 
   logout(): void {
-    console.log('LOGGING OUT');
-    const state = localStorage.getItem('loginState');
-    if (state === 'true') {
-      localStorage.clear();
-      this.store.dispatch(
-        CommonActions.toggleLoginStatus({ loginStatus: false })
-      );
-      this.router.navigate(['']);
-    }
+    this.authService.logout();
   }
 }
