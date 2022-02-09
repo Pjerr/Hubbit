@@ -9,17 +9,23 @@ import { UsersSearchViews } from '../models/user/users_search_views';
 export class UserSearchViewsService {
   constructor(private httpClient: HttpClient) {}
 
-  getSpecificUser(
-    searchMode: string,
-    username: string,
-    location: string,
-    fullName: string
-  ) {
+  getSpecificUser(searchMode: string, valueForSend: string) {
     let params = new HttpParams();
     params = params.append('searchMode', searchMode);
-    params = params.append('username', username);
-    params = params.append('location', location);
-    params = params.append('fullName', fullName);
+
+    switch (searchMode) {
+      case 'l': {
+        params = params.append('location', valueForSend.toUpperCase());
+        break;
+      }
+      case 'u': {
+        params = params.append('username', valueForSend);
+        break;
+      }
+      default: {
+        params = params.append('fullName', valueForSend);
+      }
+    }
     return this.httpClient.get(
       `${environment.apiURL}usersSearch/getSpecificUser`,
       { params: params }

@@ -7,7 +7,7 @@
       (change)="selectFilter($event.value)"
     >
       <mat-radio-button value="username">Username</mat-radio-button>
-      <mat-radio-button value="city">City</mat-radio-button>
+      <mat-radio-button value="location">Location</mat-radio-button>
       <mat-radio-button value="fullName">Full name</mat-radio-button>
     </mat-radio-group>
   </div>
@@ -25,6 +25,18 @@
     </button>
   </form>
   <div class="search-results">
-    <h1>Results go here!</h1>
+    <div class="wrap" *ngIf="results">
+      <div class="card" *ngFor="let result of results">
+        <img
+          [src]="'http://localhost:5000/' + result.profilePic"
+          class="card-img-top"
+          alt="image"
+        />
+        <div class="card-body">
+          <h2 class="card-title">{{ result.fullName }}</h2>
+          <p class="card-text">From: {{ result.location }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
