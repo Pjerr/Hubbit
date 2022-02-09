@@ -11,7 +11,7 @@ const users_search_views = new mongoose.Schema(
             unique:true
         },
         fullName:{  type : String,},
-        dob:{},
+        dob:{type : String},
         profilePic:{  type : String,},
         gender:{  type : String,},
         location:{type:String}

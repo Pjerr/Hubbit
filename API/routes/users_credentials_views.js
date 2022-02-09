@@ -1,5 +1,13 @@
 const router = require("express").Router();
 const UserCredentials = require("../models/users_credentials_views_model");
+const UsersAlgorithmView = require('../models/users_algorithm_views_model');
+const UserVisitsProfileModel = require("../models/users_visit_profile_view_model");
+const UserRecommendedViews = require("../models/users_recommended_views_model");
+const UserRelationship = require("../models/users_relationships_views_model");
+const UserSearch = require("../models/users_search_views_model");
+
+
+
 const brcypt = require("bcryptjs");
 
 const generateJWTToken = require("../auth").generateJWTToken;
@@ -42,7 +50,7 @@ router.post("/login",(req,res)=>{
 router.post("/createNewUserCredentials", (req,res)=>{
 
     req.body.password = brcypt.hashSync(req.body.password,10);
-    UserCredentials.create(req.body, (err,result)=>{
+    UserCredentials.create({username: req.body.username,email:req.body.email, password:req.body.password}, (err,result)=>{
         if(err)
         {
             res.status(500).send('Cannot create user credentials ' + err);
@@ -50,7 +58,74 @@ router.post("/createNewUserCredentials", (req,res)=>{
         else
         {
             var token = generateJWTToken(result.username);
-            res.status(200).send({result, token });
+            //res.status(200).send({result, token });
+            
+            var algoObject = {username:req.body.username,
+                              gender : req.body.gender,
+                              listGenders : req.body.listGenders,
+                              listInterests : req.body.listInterests,
+                              listTurnOns : req.body.listTurnOns,
+                              listTurnOffs : req.body.listTurnOffs,
+                              longDistance : req.body.longDistance,
+                              listPrefLoc : req.body.listPrefLoc,
+                              location : req.body.location
+
+                             };
+            createUserAlgorithmView(algoObject);
+
+            var recommendedObject = {
+                                    username:req.body.username,
+                                    dob:req.body.dob,
+                                    aboutMe : req.body.aboutMe,
+                                    profilePic : req.body.profilePic,
+                                    gender : req.body.gender,
+                                    listMatchedInterests : [],
+                                    location : req.body.location
+                        
+                                    };
+            createRecommendedView(recommendedObject);
+
+            var relationshipObject = {
+                                    username:req.body.username,
+                                    listContacts : [],
+                                    listBlocked : [],
+                                    listLeftSwipes : [],
+                                    listRightSwipes : []
+            }
+
+            createRelationshipView(relationshipObject);
+
+            var searchObject = {
+                            username:req.body.username,
+                            fullName:req.body.fullName,
+                            dob : req.body.dob,
+                            profilePic : req.body.profilePic,
+                            gender : req.body.gender,
+                            location : req.body.location
+            }
+
+            createSearchView(searchObject);
+
+            var profileViewObject = {
+                            username:req.body.username,
+                            fullName : req.body.fullName,
+                            dob:req.body.dob,
+                            aboutMe:req.body.aboutMe,
+                            profilePic:req.body.profilePic,
+                            gender : req.body.gender,
+                            listGenders : req.body.listGenders,
+                            listInterests : req.body.listInterests,
+                            listTurnOns : req.body.listTurnOns,
+                            listTurnOffs : req.body.listTurnOffs,
+                            longDistance : req.body.longDistance,
+                            listPrefLoc : req.body.listPrefLoc,
+                            location : req.body.location
+            }
+
+            createVisitProfileView(profileViewObject);
+
+
+
         }
     })
 })
@@ -84,5 +159,37 @@ router.delete("/deleteUserCredentials", (req,res)=>{
     })
 })
 
+
+
+function createUserAlgorithmView(userObject){
+    UsersAlgorithmView.create(userObject,(err,result)=>{
+        if(err) return false;
+        else return true;
+    })
+}
+function createRecommendedView(userObject){
+    UserRecommendedViews.create(userObject,(err,res)=>{
+        if(err) return false;
+        else return true;
+    })
+}
+function createRelationshipView(userObject){
+    UserRelationship.create(userObject, (err,res)=>{
+        if(err) return false;
+        else return true;
+    })
+}
+function createSearchView(userObject){
+    UserSearch.create(userObject, (err,res)=>{
+        if(err) return false;
+        else return true;
+    })
+}
+function createVisitProfileView(userObject){
+    UserVisitsProfileModel.create(userObject,(err,res)=>{
+        if(err) return false;
+        else return true;
+    })
+}
 
 module.exports = router;

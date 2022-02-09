@@ -10,10 +10,10 @@ const users_recommended_views = new mongoose.Schema(
             max:30,
             unique:true
         },
-        dob:{},
-        aboutMe:{  type : String,},
-        profilePic:{  type : String,},
-        gender:{  type : String,},
+        dob:{ type : String},
+        aboutMe:{  type : String},
+        profilePic:{  type : String},
+        gender:{  type : String},
         listMatchedInterests:{type:Array},
         location:{type:String}
     }
