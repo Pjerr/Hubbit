@@ -7,7 +7,7 @@ const cors = require('cors');
 var dir = path.join(__dirname);
 
 const corsOptions = {
-    origin:'http://localhost:3000'
+    origin:'http://localhost:4200'
 }
 
 const app = express();
