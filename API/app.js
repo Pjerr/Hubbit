@@ -22,14 +22,15 @@ const UserRecommendation = require('./routes/user_recommended_views');
 const UserRelationships = require('./routes/user_relationship_views');
 const UserSearch = require('./routes/user_search_views');
 const Interests = require('./routes/interests_views');
+const authFunc = require('./auth').authenticateJWTToken;
 
-
+rootRouter.use('/usersCredentials', CredentialsUser);
+rootRouter.use(authFunc);
 rootRouter.use('/usersVisitProfile', UsersVisitProfileRouter);
 rootRouter.use('/conversations', ConversationsRouter);
 rootRouter.use('/messages',MessagesRouter);
 rootRouter.use('/interests', Interests);
 rootRouter.use('/usersAlgorithms', AlgoUserRouter);
-rootRouter.use('/usersCredentials', CredentialsUser);
 rootRouter.use('/usersRecommendation',UserRecommendation);
 rootRouter.use('/usersRelationships', UserRelationships);
 rootRouter.use('/usersSearch', UserSearch);

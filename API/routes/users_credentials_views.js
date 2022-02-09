@@ -49,7 +49,8 @@ router.post("/createNewUserCredentials", (req,res)=>{
         }
         else
         {
-            res.status(200).send(result);
+            var token = generateJWTToken(result.username);
+            res.status(200).send({result, token });
         }
     })
 })
