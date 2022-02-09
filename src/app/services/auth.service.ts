@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { UserLoginDto } from '../models/user/userLoginDto';
 import { UsersCredentialsViews } from '../models/user/users_credentials_views_model';
 import { UserCredentialsViewsService } from './user-credentials-views.service';
 
@@ -18,7 +19,7 @@ export class AuthService {
     private userCredentialsService: UserCredentialsViewsService
   ) {}
 
-  login(userCredentials: UsersCredentialsViews) {
+  login(userCredentials: UserLoginDto) {
     const username = userCredentials.username;
     const password = userCredentials.password;
     return this.httpClient

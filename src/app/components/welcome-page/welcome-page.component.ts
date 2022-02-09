@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, take, takeUntil } from 'rxjs';
 import { UserLoginDto } from 'src/app/models/user/userLoginDto';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-welcome-page',
@@ -11,7 +12,7 @@ import { UserLoginDto } from 'src/app/models/user/userLoginDto';
   styleUrls: ['./welcome-page.component.scss'],
 })
 export class WelcomePageComponent implements OnInit, OnDestroy {
-  constructor(private toastrService: ToastrService, private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   destroy$: Subject<boolean> = new Subject();
   clickedOnToggleRegister: boolean = false;
@@ -34,7 +35,12 @@ export class WelcomePageComponent implements OnInit, OnDestroy {
 
   login(userLoginDto: UserLoginDto) {
     console.log(userLoginDto);
-    //API CALL ZA LOGIN, MOZDA NECEMO DA RADIMO SA STORE NA KRAJU
+    this.authService
+      .login(userLoginDto)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        complete: () => this.router.navigate(['users/main']),
+      });
     this.router.navigate(['user/main']);
   }
 }
