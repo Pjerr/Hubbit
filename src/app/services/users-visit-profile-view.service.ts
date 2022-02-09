@@ -16,7 +16,7 @@ export class UsersVisitProfileViewService {
   searchByUsername(username: string) {
     let params = new HttpParams();
     params = params.append('username', username);
-    return this.httpClient.get(
+    return this.httpClient.get<UsersVisitProfileViews>(
       `${environment.apiURL}usersVisitProfile/searchByUsername`,
       { params: params }
     );

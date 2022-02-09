@@ -18,9 +18,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   destroy$: Subject<boolean> = new Subject();
-  userLoggedIn: boolean | undefined = undefined;
 
-  isUserLoggedIn() {
-    return this.userLoggedIn;
-  }
+  isUserLoggedIn() {}
 }

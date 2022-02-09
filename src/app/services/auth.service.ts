@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserLoginDto } from '../models/user/userLoginDto';
 import { UsersCredentialsViews } from '../models/user/users_credentials_views_model';
+import { SocketService } from './socket.service';
 import { UserCredentialsViewsService } from './user-credentials-views.service';
 
 @Injectable({
@@ -15,7 +16,7 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private jwtHelper: JwtHelperService,
+    private socketService: SocketService,
     private userCredentialsService: UserCredentialsViewsService
   ) {}
 
@@ -31,7 +32,7 @@ export class AuthService {
         map((response: any) => {
           if (response.token != '') {
             localStorage.setItem('token', response.token);
-            localStorage.setItem('username', response.username);
+            localStorage.setItem('username', username);
           }
           return response;
         })
@@ -47,6 +48,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
+    this.socketService.emit('disconnectUser', '');
     this.router.navigate(['/']);
     location.reload();
   }

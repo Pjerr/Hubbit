@@ -1,6 +1,8 @@
 //kod tebe na frontendu je ovo ws://localhost:8900
 //pretpostavka da ces da budes na 3000 port na frontendu
 
+const { findConfigFile } = require("typescript");
+
 const io = require("socket.io")(8900, {
   cors: {
     origin: "http://localhost:4200",
@@ -10,8 +12,26 @@ const io = require("socket.io")(8900, {
 let users = [];
 
 const addUser = (username, socketId) => {
+  var found;
+  /*if (users.length == 0) {
+    users.push({ username: username, socketId: socketId });
+  } else {
+    users = users.map((m) => {
+      if (m.username == username) {
+        m.socketId = socketId;
+      }
+    });
+  }*/
+
   !users.some((user) => user.username === username) &&
     users.push({ username, socketId });
+
+  var userIndex = users.findIndex((m) => m.username === username);
+  if (userIndex != -1) {
+    users.splice(userIndex, 1);
+
+    users.push({ username, socketId });
+  }
 };
 
 const removeUser = (socketId) => {
@@ -24,13 +44,14 @@ const getUser = (username) => {
 
 io.on("connection", (socket) => {
   console.log("New user has connected to Socket.io server...");
+
   //Sta ovo znaci? Emit je fja koja radi broadcast svim klijentima
   //prikacenim na Socket io server,
   //prvi parametar je ime eventa koji salje server klijentima
   //tako ce klijent da zna koji event mu je stigao i da ih razlikuje
   //drugi parametar je samo poruka tj. data koji se prenosi tokom eventa
 
-  io.emit("welcome", "Welcome to hubbit");
+  //io.emit("welcome", "Welcome to hubbit");
 
   //da bih ja mogao da kazem io.to(socketID), moram da znam koji je socket id
   //tj. moram da vezem socket iD za klijenta
@@ -40,9 +61,18 @@ io.on("connection", (socket) => {
   //USER CONNECTS TO SERVER
   socket.on("addUser", (username) => {
     addUser(username, socket.id);
-    io.emit("getUsers", users); //ti ovo na frontu uhvatis kao getUsersEvent i tad okines API call
-    // dohvatis sve connected userse iz mongo liste za date korisnike
+    console.log(users);
+    /*var found = users.find((m) => m.username === username);
+    if (!found) {
+      users.push({ username: username, socketId: socketId });
+    }*/
   }); //isto API call u conversation rutu, dohvatis sve conversation gde se pominje ovaj korisnik
+
+  socket.on("giveUsers", () => {
+    io.emit("getUsers", users);
+  });
+  //ti ovo na frontu uhvatis kao getUsersEvent i tad okines API call
+  // dohvatis sve connected userse iz mongo liste za date korisnike
 
   //users je lista korisnika koji su trenutno aktivni tj. na app su
   //ti na frontu u local storage imas username tren korisnika
@@ -67,12 +97,17 @@ io.on("connection", (socket) => {
   //u pogresan chat
   socket.on("sendMessage", ({ senderUsername, receiverUsername, text }) => {
     const user = getUser(receiverUsername);
-    io.to(user.socketId).emit("getMessage", { senderUsername, text });
+
+    if (user) {
+      console.log(`Receiver : ${user.socketId}`);
+      console.log(`This socket: ${socket.id}`);
+      io.to(user.socketId).emit("getMessage", { senderUsername, text });
+    }
   });
 
   //USER DISCONNECTS TO SERVER
-  socket.on("disconnect", () => {
+  socket.on("disconnectUser", () => {
     removeUser(socket.id);
-    io.emit("getUsers", users);
+    console.log(users);
   });
 });

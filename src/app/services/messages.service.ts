@@ -8,10 +8,10 @@ import { environment } from 'src/environments/environment';
 export class MessagesService {
   constructor(private httpClient: HttpClient) {}
 
-  createNewMessage() {
+  createNewMessage(newMessageObj: any) {
     return this.httpClient.post(
       `${environment.apiURL}messages/createNewMessage`,
-      {}
+      newMessageObj
     );
   }
 

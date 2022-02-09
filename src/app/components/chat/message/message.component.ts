@@ -9,6 +9,7 @@ export class MessageComponent implements OnInit {
   constructor() {}
 
   @Input() own: boolean | undefined = undefined;
+  @Input() text: string | undefined = undefined;
 
   ngOnInit(): void {}
 }

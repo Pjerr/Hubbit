@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Conversation } from '../models/chat/conversation';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class ConversationService {
 
   createNewConversation() {
     return this.httpClient.post(
-      `${environment.apiURL}conversation/createNewConversation`,
+      `${environment.apiURL}conversations/createNewConversation`,
       {}
     );
   }
@@ -18,8 +19,8 @@ export class ConversationService {
   getSpecificUserConvo(username: string) {
     let params = new HttpParams();
     params = params.append('username', username);
-    return this.httpClient.get(
-      `${environment.apiURL}conversation/getSpecificUserConvo`,
+    return this.httpClient.get<Conversation[]>(
+      `${environment.apiURL}conversations/getSpecificUserConvo`,
       { params: params }
     );
   }
@@ -30,7 +31,7 @@ export class ConversationService {
     params = params.append('member1', member1);
     params = params.append('member2', member2);
     return this.httpClient.get(
-      `${environment.apiURL}conversation/getConvoForBothUsers`,
+      `${environment.apiURL}conversations/getConvoForBothUsers`,
       { params: params }
     );
   }

@@ -33,4 +33,13 @@ export class UserRelationshipViewsService {
       { params: params }
     );
   }
+
+  getContactsForUser(username: string) {
+    let params = new HttpParams();
+    params = params.append('username', username);
+    return this.httpClient.get(
+      `${environment.apiURL}usersRelationships/getContactsForSpecificUser`,
+      { params: params }
+    );
+  }
 }

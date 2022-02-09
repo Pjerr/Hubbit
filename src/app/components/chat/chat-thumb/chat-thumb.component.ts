@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ChatHead as ChatHead } from 'src/app/models/chat/chat-head';
 
 @Component({
@@ -9,11 +9,12 @@ import { ChatHead as ChatHead } from 'src/app/models/chat/chat-head';
 export class ChatThumbComponent implements OnInit {
   constructor() {}
 
-  @Input() chat: ChatHead | undefined = undefined;
+  @Input() user: any | undefined = undefined;
+  @Output() userEmmiter: EventEmitter<string> = new EventEmitter();
 
   ngOnInit(): void {}
 
-  showChat(chat: ChatHead): void {
-    console.log('should load chat for ' + chat.person);
+  showChat(user: any): void {
+    this.userEmmiter.emit(user.username);
   }
 }

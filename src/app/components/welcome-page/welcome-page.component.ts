@@ -39,8 +39,7 @@ export class WelcomePageComponent implements OnInit, OnDestroy {
       .login(userLoginDto)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        complete: () => this.router.navigate(['users/main']),
+        complete: () => this.router.navigate(['user/main']),
       });
-    this.router.navigate(['user/main']);
   }
 }
