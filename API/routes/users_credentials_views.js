@@ -26,7 +26,7 @@ router.post("/login",(req,res)=>{
         if(brcypt.compareSync(req.body.password, user.password))
         {
             var token = generateJWTToken(req.body.username);
-            res.status(200).send({token});
+            res.status(200).send({username:user.username, token});
         }
         else
         {
