@@ -27,7 +27,7 @@ router.get("/specificUserCredentials", async(req,res)=>{
 })
 
 
-router.post("/login",(req,res)=>{
+router.post("/login", async (req,res)=>{
     var user = UserCredentials.findOne({username:req.body.username}).exec();
     if(user)
     {

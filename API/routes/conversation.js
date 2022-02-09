@@ -29,7 +29,7 @@ router.post("/createNewConversation", (req,res)=>{
 })
 
 //get all user convos for one user
-router.get("/getSpecificUserConvo", (req,res)=>{
+router.get("/getSpecificUserConvo", async (req,res)=>{
     convo = await ConversationModel.find({$or:[{'member1':req.body.username}, {'member2':req.body.username}]}).exec();
     if(convo != null)
         res.status(200).send(convo);
@@ -41,7 +41,7 @@ router.get("/getSpecificUserConvo", (req,res)=>{
 
 //get specific convo between 2 users
 //DONT FORGET TO SORT THEM BEFORE GET REQUEST ON FRONTEND, member1 is lesser of two Ids
-router.get("/getConvoForBothUsers", (req,res)=>{
+router.get("/getConvoForBothUsers", async (req,res)=>{
     convo = await ConversationModel.find({$and:[{'member1':req.body.member1}, {'member2':req.body.member2}]}).exec();
     if(convo != null)
         res.status(200).send(convo);
