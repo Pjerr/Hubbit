@@ -1,8 +1,4 @@
-<div
-  #container
-  class="container"
-  [ngClass]="{ defaultBackgroundImage: 'selectedNumberOfBackgroundImage' }"
->
+<div #container class="container">
   <div class="messages" *ngFor="let message of messages" #target>
     <app-message [own]="message.own" [text]="message.text"></app-message>
   </div>

@@ -25,32 +25,39 @@ import { SocketService } from 'src/app/services/socket.service';
   styleUrls: ['./chat-box.component.scss'],
 })
 export class ChatBoxComponent
-  implements OnInit, OnDestroy, OnChanges, AfterViewChecked
+  implements OnInit, OnDestroy, OnChanges, AfterViewInit
 {
   constructor(
     private socketService: SocketService,
     private renderer2: Renderer2
   ) {}
+  ngAfterViewInit(): void {
+    this.styleBackground();
+  }
 
-  ngAfterViewChecked(): void {
-    console.log(this.container);
-    // if (this.backgroundImageNumber)
-    //   this.renderer2.setProperty(
-    //     this.container,
-    //     'background-image',
-    //     `../../../../assets/chat-backgrounds/background${this.backgroundImageNumber}.jpg`
-    //   );
+  styleBackground() {
+    this.renderer2.setStyle(
+      this.container.nativeElement,
+      'background-image',
+      `url(../../../../assets/chat-backgrounds/background${this.backgroundImageNumber}.jpg)`
+    );
+
+    this.renderer2.setStyle(
+      this.container.nativeElement,
+      'background-size',
+      'contain'
+    );
+
+    this.renderer2.setStyle(
+      this.container.nativeElement,
+      'background-repeat',
+      'round'
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.container);
     if (this.senderUsername) this.sortMessages(this.senderUsername);
-    if (this.backgroundImageNumber && this.container)
-      this.renderer2.setProperty(
-        this.container,
-        'background-image',
-        `../../../../assets/chat-backgrounds/background${this.backgroundImageNumber}.jpg`
-      );
+    if (this.container) this.styleBackground();
   }
 
   @Input() messages: any[] | undefined = undefined;
