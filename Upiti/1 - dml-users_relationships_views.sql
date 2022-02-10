@@ -1,4 +1,4 @@
-db.getCollection('users_relationships_view').insertMany(
+db.getCollection('users_relationships_views').insertMany(
     [
         { 
             username: "mara.djo", 

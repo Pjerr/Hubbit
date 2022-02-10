@@ -1,4 +1,4 @@
-db.getCollection('users_credentials_view').insertMany(
+db.getCollection('users_credentials_views').insertMany(
     [
         { 
             username: "mara.djo", 

@@ -1,6 +1,6 @@
-//users_recommended_view----------------------------------
+//users_recommended_views----------------------------------
 
-db.getCollection('users_recommended_view').createIndex(
+db.getCollection('users_recommended_views').createIndex(
   {
       "username": 1
   },
@@ -10,9 +10,9 @@ db.getCollection('users_recommended_view').createIndex(
   }
 )
 
-//users_search_view----------------------------------
+//users_search_views----------------------------------
 
-db.getCollection('users_search_view').createIndex(
+db.getCollection('users_search_views').createIndex(
   {
       "username": 1
   },
@@ -22,7 +22,7 @@ db.getCollection('users_search_view').createIndex(
   }
 )
 
-db.getCollection('users_search_view').createIndex(
+db.getCollection('users_search_views').createIndex(
   {
       "location": 1
   },
@@ -32,7 +32,7 @@ db.getCollection('users_search_view').createIndex(
   }
 )
 
-db.getCollection('users_search_view').createIndex(
+db.getCollection('users_search_views').createIndex(
   {
       "fullName": 1
   },
@@ -48,8 +48,8 @@ db.getCollection('users_search_view').createIndex(
   }
 )
 
-//users_visit_profile_view----------------------------------
-db.getCollection('users_visit_profile_view').createIndex(
+//users_visit_profile_views----------------------------------
+db.getCollection('users_visit_profile_views').createIndex(
   {
       "username": 1
   },
@@ -59,8 +59,8 @@ db.getCollection('users_visit_profile_view').createIndex(
   }
 )
 
-//users_algorithm_view----------------------------------
-db.getCollection('users_algorithm_view').createIndex(
+//users_algorithm_views----------------------------------
+db.getCollection('users_algorithm_views').createIndex(
   {
       "username": 1
   },
@@ -70,7 +70,7 @@ db.getCollection('users_algorithm_view').createIndex(
   }
 )
 
-db.getCollection('users_algorithm_view').createIndex(
+db.getCollection('users_algorithm_views').createIndex(
   {
       "location": 1
   },
@@ -80,8 +80,8 @@ db.getCollection('users_algorithm_view').createIndex(
   }
 )
 
-//users_credentials_view----------------------------------
-db.getCollection('users_credentials_view').createIndex(
+//users_credentials_views----------------------------------
+db.getCollection('users_credentials_views').createIndex(
   {
       "username": 1
   },
@@ -91,8 +91,8 @@ db.getCollection('users_credentials_view').createIndex(
   }
 )
 
-//users_relationships_view----------------------------------
-db.getCollection('users_relationships_view').createIndex(
+//users_relationships_views----------------------------------
+db.getCollection('users_relationships_views').createIndex(
   {
       "username": 1
   },

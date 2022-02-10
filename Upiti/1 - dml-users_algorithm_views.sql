@@ -1,27 +1,19 @@
-db.getCollection('users_visit_profile_view').insertMany(
+db.getCollection('users_algorithm_views').insertMany(
     [
         { 
             username: "mara.djo", 
-            fullName: "Marija Djokic",
-            dob: "19.05.1997.",
-            aboutMe: "Zdravo ja sam Marija",
-            profilePic: "pictures/profile-pictures/androgynous/1.jfif",
             gender: "o",
             listGenders: ["m", "o"],
             listInterests: ["MUSIC", "MOVIES", "TV SHOWS"],
             listTurnOns: ["GYM", "ART"],
             listTurnOffs: ["GAMES", "ANIME"],
-            longDistance: false,
-            listPrefLoc: ["BEOGRAD"],
+            longDistance: true,
+            listPrefLoc: ["BEOGRAD", "NOVI SAD"],
             location: "BEOGRAD"
         },
 
         { 
             username: "kola.ni", 
-            fullName: "Nikola Petkovic",
-            dob: "06.10.1998.",
-            aboutMe: "Zdravo ja sam Nikola",
-            profilePic: "pictures/profile-pictures/androgynous/2.jfif",
             gender: "o",
             listGenders: ["f", "o"],
             listInterests: ["GYM", "ART", "FASHION"],
@@ -34,10 +26,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "aleks.mar", 
-            fullName: "Aleksandra Markovic",
-            dob: "25.03.1998.",
-            aboutMe: "Zdravo ja sam Aleksandra",
-            profilePic: "pictures/profile-pictures/androgynous/3.jfif",
             gender: "o",
             listGenders: ["m", "f", "o"],
             listInterests: ["GAMES", "ANIME", "FASHION"],
@@ -50,10 +38,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "dan.min",
-            fullName: "Danilo Minic", 
-            dob: "03.07.1999.",
-            aboutMe: "Zdravo ja sam Danilo",
-            profilePic: "pictures/profile-pictures/androgynous/4.jfif",
             gender: "o",
             listGenders: ["m"],
             listInterests: ["STREAMING", "PETS", "GAMES"],
@@ -66,10 +50,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "stef.ana", 
-            fullName: "Stefana Dobrosavljevic",
-            dob: "22.04.1998.",
-            aboutMe: "Zdravo ja sam Stefana",
-            profilePic: "pictures/profile-pictures/androgynous/5.jfif",
             gender: "o",
             listGenders: ["f"],
             listInterests: ["PHOTOGRAPHY", "ART", "PETS"],
@@ -82,10 +62,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "miro.din", 
-            fullName: "Miroslav Dinic",
-            dob: "02.11.1997.",
-            aboutMe: "Zdravo ja sam Miroslav",
-            profilePic: "pictures/profile-pictures/androgynous/6.jfif",
             gender: "o",
             listGenders: ["m", "o"],
             listInterests: ["GAMES", "SPORTS", "RELIGION"],
@@ -98,10 +74,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "tam.stan", 
-            fullName: "Tamara Stankovic",
-            dob: "04.12.1995.",
-            aboutMe: "Zdravo ja sam Tamara",
-            profilePic: "pictures/profile-pictures/female/1.jfif",
             gender: "f",
             listGenders: ["m"],
             listInterests: ["PETS", "GYM", "SPORTS"],
@@ -114,10 +86,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "nenad.pav", 
-            fullName: "Nenad Pavlovic",
-            dob: "11.12.1998.",
-            aboutMe: "Zdravo ja sam Nenad",
-            profilePic: "pictures/profile-pictures/male/1.jfif",
             gender: "m",
             listGenders: ["m"],
             listInterests: ["PHOTOGRAPHY", "RELIGION", "SPORTS"],
@@ -130,10 +98,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "dar.milj", 
-            fullName: "Darja Miljkovic",
-            dob: "01.11.1996.",
-            aboutMe: "Zdravo ja sam Darja",
-            profilePic: "pictures/profile-pictures/female/2.jfif",
             gender: "f",
             listGenders: ["m", "f"],
             listInterests: ["ART", "PETS", "BOOKS"],
@@ -146,10 +110,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "mar.per", 
-            fullName: "Marko Peric",
-            dob: "14.10.1999.",
-            aboutMe: "Zdravo ja sam Marko",
-            profilePic: "pictures/profile-pictures/male/2.jfif",
             gender: "m",
             listGenders: ["m", "o"],
             listInterests: ["SPORTS", "GYM", "BOOKS"],
@@ -162,10 +122,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "nenad.jovanovic", 
-            fullName: "Nenad Jovanovic",
-            dob: "27.09.1998.",
-            aboutMe: "Zdravo ja sam Nenad",
-            profilePic: "pictures/profile-pictures/male/3.jfif",
             gender: "m",
             listGenders: ["f"],
             listInterests: ["RELIGION", "PETS", "GYM"],
@@ -178,10 +134,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "mi.ljana",
-            fullName: "Miljana Jovic", 
-            dob: "24.08.1998.",
-            aboutMe: "Zdravo ja sam Miljana",
-            profilePic: "pictures/profile-pictures/female/3.jfif",
             gender: "f",
             listGenders: ["m", "f", "o"],
             listInterests: ["MANGA", "ANIME", "PETS"],
@@ -194,10 +146,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "dan.pes", 
-            fullName: "Danijela Pesic",
-            dob: "24.11.1998.",
-            aboutMe: "Zdravo ja sam Danijela",
-            profilePic: "pictures/profile-pictures/female/4.jfif",
             gender: "f",
             listGenders: ["m", "f"],
             listInterests: ["GAMES", "STREAMING", "SOCIAL MEDIA"],
@@ -210,10 +158,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "darko.marinko", 
-            fullName: "Darko Marinkovic",
-            dob: "08.01.1997.",
-            aboutMe: "Zdravo ja sam Darko",
-            profilePic: "pictures/profile-pictures/male/4.jfif",
             gender: "m",
             listGenders: ["m", "f"],
             listInterests: ["GYM", "GAMES", "MUSIC"],
@@ -226,10 +170,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "masa.tasic", 
-            fullName: "Masa Tasic",
-            dob: "12.11.1999.",
-            aboutMe: "Zdravo ja sam Masa",
-            profilePic: "pictures/profile-pictures/female/5.jfif",
             gender: "f",
             listGenders: ["m", "f"],
             listInterests: ["BOOKS", "PETS", "SOCIAL MEDIA"],
@@ -242,10 +182,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "velj.ko", 
-            fullName: "Veljko Vilotic",
-            dob: "16.12.1998.",
-            aboutMe: "Zdravo ja sam Veljko",
-            profilePic: "pictures/profile-pictures/male/5.jfif",
             gender: "m",
             listGenders: ["o", "f"],
             listInterests: ["STREAMING", "GAMES", "PETS"],
@@ -258,10 +194,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "mir.jana", 
-            fullName: "Mirjana Danilovic",
-            dob: "13.02.1999.",
-            aboutMe: "Zdravo ja sam Mirjana",
-            profilePic: "pictures/profile-pictures/female/6.jfif",
             gender: "f",
             listGenders: ["m", "o"],
             listInterests: ["ART", "MANGA", "BOOKS"],
@@ -274,10 +206,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "jana.velj", 
-            fullName: "Jana Veljkovic",
-            dob: "31.08.1999.",
-            aboutMe: "Zdravo ja sam Jana",
-            profilePic: "pictures/profile-pictures/female/7.jfif",
             gender: "f",
             listGenders: ["o"],
             listInterests: ["FASHION", "STREAMING", "SOCIAL MEDIA"],
@@ -290,10 +218,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "andja.djo", 
-            fullName: "Andjelija Djordjevic",
-            dob: "20.06.1998.",
-            aboutMe: "Zdravo ja sam Andjelija",
-            profilePic: "pictures/profile-pictures/female/8.jfif",
             gender: "f",
             listGenders: ["f"],
             listInterests: ["TV SHOWS", "GAMES", "RELIGION"],
@@ -306,10 +230,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "mi.ljan", 
-            fullName: "Miljan Denic",
-            dob: "21.07.1996.",
-            aboutMe: "Zdravo ja sam Miljan",
-            profilePic: "pictures/profile-pictures/male/6.jfif",
             gender: "m",
             listGenders: ["m"],
             listInterests: ["PHOTOGRAPHY", "FASHION", "SOCIAL MEDIA"],
@@ -322,10 +242,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "maja.din", 
-            fullName: "Maja Dinic",
-            dob: "25.03.1997.",
-            aboutMe: "Zdravo ja sam Maja",
-            profilePic: "pictures/profile-pictures/female/9.jfif",
             gender: "f",
             listGenders: ["m", "f"],
             listInterests: ["STREAMING", "MANGA", "PETS"],
@@ -338,10 +254,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "pre.spas", 
-            fullName: "Predrag Spasov",
-            dob: "11.10.1997.",
-            aboutMe: "Zdravo ja sam Predrag",
-            profilePic: "pictures/profile-pictures/male/7.jfif",
             gender: "m",
             listGenders: ["o", "m"],
             listInterests: ["MUSIC", "ART", "PHOTOGRAPHY"],
@@ -354,10 +266,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "mar.ta", 
-            fullName: "Marta Milojkovic",
-            dob: "23.04.1998.",
-            aboutMe: "Zdravo ja sam Marta",
-            profilePic: "pictures/profile-pictures/female/10.jfif",
             gender: "f",
             listGenders: ["m"],
             listInterests: ["MOVIES", "TV SHOWS", "PETS"],
@@ -370,10 +278,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "aleks.dim", 
-            fullName: "Aleksandar Dimic",
-            dob: "13.02.1999.",
-            aboutMe: "Zdravo ja sam Aleksandar",
-            profilePic: "pictures/profile-pictures/male/8.jfif",
             gender: "m",
             listGenders: ["f"],
             listInterests: ["ART", "FASHION", "TV SHOWS"],
@@ -386,10 +290,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "andj.dimi", 
-            fullName: "Andjela Dimitrijevic",
-            dob: "17.05.1996.",
-            aboutMe: "Zdravo ja sam Andjela",
-            profilePic: "pictures/profile-pictures/female/11.jfif",
             gender: "f",
             listGenders: ["m", "f"],
             listInterests: ["MANGA", "MOVIES", "MUSIC"],
@@ -402,10 +302,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "ne.manja", 
-            fullName: "Nemanja Jovicic",
-            dob: "06.11.1998.",
-            aboutMe: "Zdravo ja sam Nemanja",
-            profilePic: "pictures/profile-pictures/male/9.jfif",
             gender: "m",
             listGenders: ["f", "o"],
             listInterests: ["STREAMING", "FASHION", "ANIME"],
@@ -418,10 +314,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "ste.fanper",
-            fullName: "Stefan Peric",  
-            dob: "19.07.1996.",
-            aboutMe: "Zdravo ja sam Stefan",
-            profilePic: "pictures/profile-pictures/male/10.jfif",
             gender: "m",
             listGenders: ["m", "f"],
             listInterests: ["GAMES", "SPORTS", "RELIGION"],
@@ -434,10 +326,6 @@ db.getCollection('users_visit_profile_view').insertMany(
 
         { 
             username: "dusan.stef", 
-            fullName: "Dusan Stefanovic",
-            dob: "22.11.1997.",
-            aboutMe: "Zdravo ja sam Dusan",
-            profilePic: "pictures/profile-pictures/male/11.jfif",
             gender: "m",
             listGenders: ["f"],
             listInterests: ["BOOKS", "MUSIC", "PETS"],

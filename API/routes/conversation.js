@@ -19,7 +19,7 @@ router.post("/createNewConversation", (req,res)=>{
     ConversationModel.create({member1 :smallerIdUser, member2 : biggerIdUser},(err,result)=>{
         if(err)
         {
-            res.status(500).send('Error with new convo');
+            res.status(500).send('Error with new convo ' + err);
         }
         else
         {

@@ -11,7 +11,7 @@ const users_visit_profile_views = new mongoose.Schema(
             unique:true
         },
         fullName:{  type : String,},
-        dob:{},
+        dob:{type : String},
         aboutMe:{  type : String,},
         profilePic:{  type : String,},
         gender:{  type : String,},
