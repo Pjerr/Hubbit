@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const UserVisitsProfileModel = require("../models/users_visit_profile_view_model");
+const UserRecommendedViews = require("../models/users_recommended_views_model");
+const UsersAlgorithmView = require('../models/users_algorithm_views_model');
+const UserSearch = require("../models/users_search_views_model");
 
 router.get("/", async(req,res)=>{
     
@@ -35,16 +38,58 @@ router.post("/createNewUserProfileView",(req,res)=>{
 })
 
 
-router.put("/updateUserProfile", (req,res)=>{
-    UserVisitsProfileModel.updateOne({username : req.body.username}, {aboutMe : req.body.aboutMe}, (err,result)=>{
-        if(err)
+router.put("/updateUserProfile", (req, res) => 
+{
+    try
+    {
+        attributeName = req.body.change;
+
+        if(attributeName == "aboutMe" || attributeName == "gender")
         {
-             res.status(500).send('user update failed ' + err);
+            UserVisitsProfileModel.updateOne({ username : req.body.username }, { [attributeName]:  req.body.attribute }, (err, result) => 
+            {
+                if(err)
+                    res.status(500).send('user update failed - collection: visit_profile ' + err);
+                else 
+                {
+
+                    UserRecommendedViews.updateOne({ username : req.body.username }, { [attributeName] : req.body.attribute }, (err, result) => 
+                    {
+                        if(err)
+                            res.status(500).send('user update failed - collection: recommended ' + err);
+                        else
+                        {
+                            if(attributeName == "gender")
+                            {
+                                UsersAlgorithmView.updateOne({ username : req.body.username }, { [attributeName] : req.body.attribute }, (err, result) => 
+                                {
+                                    if(err)
+                                        res.status(500).send('user update failed - collection: algorithm ' + err);
+                                    else 
+                                    {
+                                        UserSearch.updateOne({ username : req.body.username }, { [attributeName] : req.body.attribute }, (err, result) => 
+                                        {
+                                            if(err)
+                                                res.status(500).send('user update failed - collection: search ' + err);
+                                            else
+                                                res.status(200).send(result);
+                                        });
+                                    }
+                                })
+                            }
+                            else
+                                res.status(200).send(result);
+                        }
+                    });
+                }
+            })
         }
-        else {
-            res.status(200).send(result);
-        }
-    })
+    }
+    catch(ex)
+    {
+        res.status(500).send('Error with updateUserProfile ' + err )
+    }
+    
 })
 
 
