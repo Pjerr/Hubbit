@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, Subject, take, takeUntil } from 'rxjs';
 import { Interest } from 'src/app/models/interest';
 import { UserLoginDto } from 'src/app/models/user/userLoginDto';
+import { UserRegisterDto } from 'src/app/models/user/userRegisterDto';
 import { AuthService } from 'src/app/services/auth.service';
 import { InterestsViewsService } from 'src/app/services/interests-views.service';
 
@@ -54,5 +55,10 @@ export class WelcomePageComponent implements OnInit, OnDestroy {
       .subscribe({
         complete: () => this.router.navigate(['user/main']),
       });
+  }
+
+  register(userRegisterInfo: UserRegisterDto) {
+    console.log(userRegisterInfo);
+    //API CALL
   }
 }

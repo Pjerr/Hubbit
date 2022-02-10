@@ -1,9 +1,17 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
 import { Interest } from 'src/app/models/interest';
+import { UserRegisterDto } from 'src/app/models/user/userRegisterDto';
 
 @Component({
   selector: 'app-register',
@@ -23,6 +31,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject();
 
   @Input() interestsArray: Interest[] | undefined = undefined;
+  @Output() registerEventEmmiter: EventEmitter<any> = new EventEmitter();
 
   //TODO: Validators.required
   registerFormUserDetails: FormGroup = new FormGroup({
@@ -110,17 +119,25 @@ export class RegisterComponent implements OnInit, OnDestroy {
     else return true;
   }
 
-  //TODO: find a way to get all preferences
   register() {
     if (this.registerFormUserDetails.valid && this.areListsValid()) {
-      console.log(this.registerFormUserDetails.value);
-      console.log('INTERESTS');
-      console.log(this.listOfInterests);
-      console.log('TURN ONS');
-      console.log(this.listOfTurnOns);
-      console.log('TURN OFFS');
-      console.log(this.listOfTurnOffs);
-      console.log('REGISTERING');
+      // console.log(this.registerFormUserDetails.value);
+      // console.log('INTERESTS');
+      // console.log(this.listOfInterests);
+      // console.log('TURN ONS');
+      // console.log(this.listOfTurnOns);
+      // console.log('TURN OFFS');
+      // console.log(this.listOfTurnOffs);
+      // console.log('REGISTERING');
+
+      const objForRegister: UserRegisterDto = {
+        userDetails: this.registerFormUserDetails.value,
+        listOfInterests: this.listOfInterests,
+        listOfTurnOffs: this.listOfTurnOffs,
+        listOfTurnOns: this.listOfTurnOns,
+      };
+
+      this.registerEventEmmiter.emit(objForRegister);
     } else {
       this.toastrService.info('Please enter all information needed', 'Info');
     }
