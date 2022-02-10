@@ -40,6 +40,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     email: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required),
     surname: new FormControl('', Validators.required),
+    dob: new FormControl(undefined, Validators.required),
   });
 
   listOfInterests: Interest[] = [];
@@ -88,7 +89,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       category: interestName,
     };
     list.push(interestToAdd);
-    console.log(list);
     return true;
   }
 
@@ -97,7 +97,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       (interest: Interest) => interest.category === interestName
     );
     if (interestIndex != -1) list.splice(interestIndex, 1);
-    console.log(list);
   }
 
   areListsValid(): boolean {

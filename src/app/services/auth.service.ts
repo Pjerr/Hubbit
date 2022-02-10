@@ -50,7 +50,6 @@ export class AuthService {
     localStorage.removeItem('username');
     this.socketService.emit('disconnectUser', '');
     this.router.navigate(['/']);
-    location.reload();
   }
 
   register(newUser: UsersCredentialsViews) {

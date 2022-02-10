@@ -8,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class MainPageComponent implements OnInit {
   constructor() {}
 
-  ngOnInit(): void {}
+  currentUsername: string | undefined = undefined;
+  ngOnInit(): void {
+    const username = localStorage.getItem('username');
+    if (username) this.currentUsername = username;
+  }
 
   likePerson(): void {}
 

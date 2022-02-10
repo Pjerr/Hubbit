@@ -10,6 +10,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,7 +29,6 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
 import { SearchComponent } from './components/search/search.component';
 import { ChatThumbComponent } from './components/chat/chat-thumb/chat-thumb.component';
 
-import { EffectsModule } from '@ngrx/effects';
 import { environment } from 'src/environments/environment';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -71,6 +72,8 @@ const socketConfig: SocketIoConfig = {
     MatButtonModule,
     MatInputModule,
     MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     FormsModule,
     ToastrModule.forRoot(),
     SocketIoModule.forRoot(socketConfig),

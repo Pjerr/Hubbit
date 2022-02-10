@@ -48,7 +48,6 @@ export class WelcomePageComponent implements OnInit, OnDestroy {
   }
 
   login(userLoginDto: UserLoginDto) {
-    console.log(userLoginDto);
     this.authService
       .login(userLoginDto)
       .pipe(takeUntil(this.destroy$))

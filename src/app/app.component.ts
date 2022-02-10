@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,5 +18,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject();
 
-  isUserLoggedIn() {}
+  isUserLoggedIn(): boolean {
+    const username = localStorage.getItem('username');
+    if (username) return true;
+    else return false;
+  }
 }
