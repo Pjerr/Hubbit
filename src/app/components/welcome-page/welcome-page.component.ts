@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ToastrService } from 'ngx-toastr';
-import { Subject, take, takeUntil } from 'rxjs';
+import { Observable, Subject, take, takeUntil } from 'rxjs';
+import { Interest } from 'src/app/models/interest';
 import { UserLoginDto } from 'src/app/models/user/userLoginDto';
 import { AuthService } from 'src/app/services/auth.service';
+import { InterestsViewsService } from 'src/app/services/interests-views.service';
 
 @Component({
   selector: 'app-welcome-page',
@@ -12,9 +12,14 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./welcome-page.component.scss'],
 })
 export class WelcomePageComponent implements OnInit, OnDestroy {
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private interestsViewsService: InterestsViewsService
+  ) {}
 
   destroy$: Subject<boolean> = new Subject();
+  allInterests: Interest[] | undefined = undefined;
   clickedOnToggleRegister: boolean = false;
 
   //WORK IN PROGRESS
@@ -31,6 +36,14 @@ export class WelcomePageComponent implements OnInit, OnDestroy {
 
   toggleResiterForm() {
     this.clickedOnToggleRegister = !this.clickedOnToggleRegister;
+    if (this.clickedOnToggleRegister) {
+      this.interestsViewsService
+        .getAllInterests()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((data: any) => {
+          this.allInterests = data;
+        });
+    }
   }
 
   login(userLoginDto: UserLoginDto) {

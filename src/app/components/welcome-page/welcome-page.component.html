@@ -10,7 +10,7 @@
     </p>
   </div>
   <div class="register-box" *ngIf="clickedOnToggleRegister">
-    <app-register></app-register>
+    <app-register [interestsArray]="allInterests"></app-register>
     <p>
       Already have an account? Click
       <span class="toggleRegisterButton" (click)="toggleResiterForm()"

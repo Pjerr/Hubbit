@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Interest } from 'src/app/models/interest';
 
 @Component({
@@ -21,6 +21,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   destroy$: Subject<boolean> = new Subject();
+
+  @Input() interestsArray: Interest[] | undefined = undefined;
 
   //TODO: Validators.required
   registerFormUserDetails: FormGroup = new FormGroup({
@@ -74,7 +76,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       return false;
     }
     const interestToAdd: Interest = {
-      name: interestName,
+      category: interestName,
     };
     list.push(interestToAdd);
     console.log(list);
@@ -83,7 +85,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   handleRemoveFromList(list: Interest[], interestName: string) {
     const interestIndex = list.findIndex(
-      (interest: Interest) => interest.name === interestName
+      (interest: Interest) => interest.category === interestName
     );
     if (interestIndex != -1) list.splice(interestIndex, 1);
     console.log(list);
@@ -101,7 +103,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   shouldDisableCheckbox(list: Interest[], interestToCheck: string) {
     const foundInterest = list.find(
-      (interest: Interest) => interest.name === interestToCheck
+      (interest: Interest) => interest.category === interestToCheck
     );
 
     if (foundInterest) return false;
