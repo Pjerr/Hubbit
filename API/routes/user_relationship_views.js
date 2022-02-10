@@ -2,6 +2,8 @@ const router = require("express").Router();
 const UserRelationship = require("../models/users_relationships_views_model");
 const ConversationModel = require("../models/conversations_model");
 const UserVistiProfileModel = require("../models/users_visit_profile_view_model");
+const ConversationSettings = require("../models/conversation_settings_model");
+
 
 router.get("/specificUser", async (req, res) => {
   var user = UserRelationship.findOne({ username: req.query.username }).exec();
@@ -82,13 +84,24 @@ function createNewConvo(userWhoSwipped, recommendedUser, res) {
   const biggerUser =
     userWhoSwipped > recommendedUser ? userWhoSwipped : recommendedUser;
 
+   
   ConversationModel.create(
     { member1: smallerUser, member2: biggerUser },
     (err, result) => {
       if (err) {
         res.status(500).send("Error with new convo " + err);
       } else {
-        res.status(200).send("New convo added");
+        ConversationSettings.create({conversationId : result._id, bubbleColour:"#3375f0", backgroundImage: "default" },(err,result)=>{
+              if(!err)
+                {
+                  res.status(200).send("New convo added");
+                }
+              else
+              {
+                res.status(500).send("Couldnt create new settings for convo");
+              }
+        })
+        
       }
     }
   );
