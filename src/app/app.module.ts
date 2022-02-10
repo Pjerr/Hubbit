@@ -36,6 +36,7 @@ import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { OrderByPipe } from './pipes/order-by.pipe';
+import { AgePipe } from './pipes/age.pipe';
 
 const socketConfig: SocketIoConfig = {
   url: environment.socketURL,
@@ -59,6 +60,7 @@ const socketConfig: SocketIoConfig = {
     LoginComponent,
     RegisterComponent,
     OrderByPipe,
+    AgePipe,
   ],
   imports: [
     BrowserModule,

@@ -42,4 +42,37 @@ export class UserRelationshipViewsService {
       { params: params }
     );
   }
+
+  swipeRight(userWhoSwipped: string, recommendedUser: string) {
+    return this.httpClient.put(
+      `${environment.apiURL}usersRelationships/swipeRight`,
+      {
+        userWhoSwipped,
+        recommendedUser,
+      },
+      { responseType: 'text' }
+    );
+  }
+
+  swipeLeft(userWhoSwipped: string, recommendedUser: string) {
+    return this.httpClient.put(
+      `${environment.apiURL}usersRelationships/swipeLeft`,
+      {
+        userWhoSwipped,
+        recommendedUser,
+      },
+      { responseType: 'text' }
+    );
+  }
+
+  blockUser(userWhoBlocked: string, blockedUser: string) {
+    return this.httpClient.put(
+      `${environment.apiURL}usersRelationships/blockUser`,
+      {
+        userWhoBlocked,
+        blockedUser,
+      },
+      { responseType: 'text' }
+    );
+  }
 }

@@ -65,15 +65,10 @@ router.get("/getForUser", async (req, res) => {
             if (!tmpList.includes(y.username)) tmpList.push(y.username);
           });
 
-          console.log("TMP_LIST");
-          console.log(tmpList);
           //uzimaju se karakteristike korisnika x
           UsersAlgorithmView.findOne(
             { username: req.query.username },
             (err, result) => {
-              console.log("KORISNIK X");
-              console.log(result);
-
               //Trazenje niza potencijalnih y-ova
               //1) { username: { $nin: tmpList } } - NE zelimo da y ima username nekih iz onih listi gore
               //2) { location: { $in: result.listPrefLoc }} - zelimo da lokacija od y bude neki iz liste gradova koje x preferira
@@ -120,15 +115,9 @@ router.get("/getForUser", async (req, res) => {
                 },
                 (err, potentialPartners) => {
                   usernameList = [];
-                  console.log("POTENTIAL PARTNERS TEST");
-                  console.log(potentialPartners);
                   potentialPartners?.forEach((y) =>
                     usernameList.push(y.username)
                   );
-
-                  console.log("USERNAMES SVIH POTENTIAL PARTNERA");
-                  console.log(usernameList); //izvlacim usernames potencijalnih y-ova
-
                   //traze se liste svih potencijalnih partnera. Zelimo da proverimo da oni mozda nisu blokirali/uradili left swipe na x
                   //Znam da bi ovo trebalo ranije da se uradi, ali ne mogu da znam ko su bez onog prethodnog (glomaznog) query-a
                   //1) { username: { $in: usernameList }} - ako je username jedan od ovih iz liste usernameova potencijalnih partnera
@@ -153,10 +142,6 @@ router.get("/getForUser", async (req, res) => {
 
                       result.forEach((y) => usernameList.push(y.username));
 
-                      console.log("PRED KRAJ");
-                      console.log(usernameList);
-                      console.log(potentialPartners);
-
                       //u potentialPartners imam listu DOKUMENATA, ali neki od njihovih usernames NE POSTOJI
                       //u result poslednjeg query-a (mozda su blokirali x ili uradili left swipe).
                       //u result tj usernameList imam listu STRINGOVA (listu usernameova)
@@ -168,11 +153,6 @@ router.get("/getForUser", async (req, res) => {
                           potentialPartners2.push(y);
                         }
                       });
-
-                      console.log(
-                        "------------------------------Potential partners kao lista predlozenih dokumenata korisnika: "
-                      );
-                      console.log(potentialPartners2);
 
                       //treba da se samo izvuce lista usernames odavde i da se
                       //oni fetchuju iz recommended kolekcije

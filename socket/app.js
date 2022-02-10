@@ -105,6 +105,10 @@ io.on("connection", (socket) => {
     }
   });
 
+  socket.on("newConvoAdded", (userToNotify) => {
+    io.emit("notify", userToNotify.toString());
+  });
+
   //USER DISCONNECTS TO SERVER
   socket.on("disconnectUser", () => {
     removeUser(socket.id);
