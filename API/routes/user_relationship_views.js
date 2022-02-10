@@ -24,6 +24,19 @@ router.get("/getContactsForSpecificUser", (req, res) => {
   });
 });
 
+router.get("/getAllBlockedUsersForSpecificUser", (req,res)=>{
+  UserRelationship.findOne({username:req.query.username},(err,result)=>{
+    if(!err)
+    {
+      res.status(200).send(result.listBlocked);
+    }
+    else
+    {
+      res.status(500).send("Not working list for blocked users");
+    }
+  })
+})
+
 // {username, profilePic}
 router.post("/createNewUser", (req, res) => {
   UserRelationship.create(req.body, (err, result) => {
@@ -188,6 +201,8 @@ router.put("/unblockUser", (req,res)=>{
     }
   );
 })
+
+
 
 router.delete("/deleteUser", (req, res) => {
   UserRelationship.deleteOne(
