@@ -21,6 +21,7 @@ const UserRecommendation = require("./routes/user_recommended_views");
 const UserRelationships = require("./routes/user_relationship_views");
 const UserSearch = require("./routes/user_search_views");
 const Interests = require("./routes/interests_views");
+const Settings = require("./routes/conversation_settings");
 const authFunc = require("./auth").authenticateJWTToken;
 
 rootRouter.use("/usersCredentials", CredentialsUser);
@@ -33,6 +34,7 @@ rootRouter.use("/usersAlgorithms", AlgoUserRouter);
 rootRouter.use("/usersRecommendation", UserRecommendation);
 rootRouter.use("/usersRelationships", UserRelationships);
 rootRouter.use("/usersSearch", UserSearch);
+rootRouter.use("/conversationSettings", Settings);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(dir));
