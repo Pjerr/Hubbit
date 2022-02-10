@@ -172,6 +172,23 @@ router.put("/blockUser", (req, res) => {
   );
 });
 
+router.put("/unblockUser", (req,res)=>{
+  const userWhoUnblocked = req.body.userWhoUnblocked;
+  const unblockedUser = req.body.unblockedUser;
+
+  UserRelationship.updateOne(
+    { username: userWhoUnblocked },
+    { $pull: { listBlocked: { username: unblockedUser } } },
+    (err, result) => {
+      if (!err) {
+        res.status(200).send("successfully unblocked");
+      } else {
+        res.status(500).send("unblocking failed");
+      }
+    }
+  );
+})
+
 router.delete("/deleteUser", (req, res) => {
   UserRelationship.deleteOne(
     { username: req.query.username },
