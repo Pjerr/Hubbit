@@ -26,7 +26,11 @@
   </form>
   <div class="search-results">
     <div class="wrap" *ngIf="results">
-      <div class="card" *ngFor="let result of results">
+      <div
+        class="card"
+        *ngFor="let result of results"
+        (click)="moveToUserViewPage(result.username)"
+      >
         <img
           [src]="'http://localhost:5000/' + result.profilePic"
           class="card-img-top"

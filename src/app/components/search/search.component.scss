@@ -22,6 +22,9 @@
 .card {
   margin-top: 20px;
   width: 18rem;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .card-img-top {

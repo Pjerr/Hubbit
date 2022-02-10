@@ -1,10 +1,9 @@
-<div class="card" *ngIf="userVisitProfileView | async as user">
+<div class="card" *ngIf="searchedUser | async as user">
   <img
     [src]="'http://localhost:5000/' + user.profilePic"
     class="card-img-top"
     alt="image"
   />
-  <button class="btn btn-secondary">Update profile</button>
   <div class="card-body">
     <h2 class="card-title">{{ user.fullName }}, {{ user.dob | age }}</h2>
     <h4 class="card-text">
@@ -40,5 +39,20 @@
         </ul>
       </div>
     </div>
+    <button
+      class="btn btn-danger"
+      *ngIf="!isThisMe() && !isBlockedUser"
+      (click)="blockUser(user.username)"
+    >
+      Block
+    </button>
+
+    <button
+      class="btn btn-secondary"
+      *ngIf="!isThisMe() && isBlockedUser"
+      (click)="unblockUser(user.username)"
+    >
+      Unblock
+    </button>
   </div>
 </div>

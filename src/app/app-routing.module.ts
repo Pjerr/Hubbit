@@ -4,6 +4,7 @@ import { ChatpageComponent } from './components/chat/chatpage/chatpage.component
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { SearchComponent } from './components/search/search.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { UserViewComponent } from './components/user-view/user-view.component';
 import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
 import { AuthGuardGuard } from './services/auth-guard.guard';
 
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'search',
         component: SearchComponent,
+      },
+      {
+        path: 'view',
+        component: UserViewComponent,
       },
     ],
   },

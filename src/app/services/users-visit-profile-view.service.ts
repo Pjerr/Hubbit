@@ -10,7 +10,9 @@ export class UsersVisitProfileViewService {
   constructor(private httpClient: HttpClient) {}
 
   getAllUserVisitProfileView() {
-    return this.httpClient.get(`${environment.apiURL}usersVisitProfile`);
+    return this.httpClient.get<UsersVisitProfileViews[]>(
+      `${environment.apiURL}usersVisitProfile`
+    );
   }
 
   searchByUsername(username: string) {

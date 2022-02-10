@@ -75,4 +75,24 @@ export class UserRelationshipViewsService {
       { responseType: 'text' }
     );
   }
+
+  unblockUser(userWhoUnblocked: string, unblockedUser: string) {
+    return this.httpClient.put(
+      `${environment.apiURL}usersRelationships/unblockUser`,
+      {
+        userWhoUnblocked,
+        unblockedUser,
+      },
+      { responseType: 'text' }
+    );
+  }
+
+  getAllBlockedUsersForSpecificUser(username: string) {
+    let params = new HttpParams();
+    params = params.append('username', username);
+    return this.httpClient.get(
+      `${environment.apiURL}usersRelationships/getAllBlockedUsersForSpecificUser`,
+      { params: params }
+    );
+  }
 }

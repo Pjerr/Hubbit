@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { UserRelationshipViewsService } from 'src/app/services/user-relationship-views.service';
 import { UserSearchViewsService } from 'src/app/services/user-search-views.service';
 
 @Component({
@@ -9,7 +11,11 @@ import { UserSearchViewsService } from 'src/app/services/user-search-views.servi
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  constructor(private userSearchViewsService: UserSearchViewsService) {}
+  constructor(
+    private userSearchViewsService: UserSearchViewsService,
+    private userRelationshipViewsService: UserRelationshipViewsService,
+    private router: Router
+  ) {}
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
@@ -22,9 +28,24 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   results: any | undefined = undefined;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getMyBlockedUsers();
+  }
 
   searchValue = new FormControl('', [Validators.required]);
+
+  getMyBlockedUsers() {
+    const username = localStorage.getItem('username');
+    if (username)
+      this.userRelationshipViewsService
+        .getAllBlockedUsersForSpecificUser(username)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (data: any) => {
+            localStorage.setItem('blocked', JSON.stringify(data));
+          },
+        });
+  }
 
   selectFilter(value: string) {
     switch (value) {
@@ -54,5 +75,14 @@ export class SearchComponent implements OnInit, OnDestroy {
             this.results = data;
           },
         });
+  }
+
+  moveToUserViewPage(username: string) {
+    console.log(username);
+    this.router.navigate(['/user/view'], {
+      queryParams: {
+        username,
+      },
+    });
   }
 }
