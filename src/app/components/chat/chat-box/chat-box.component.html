@@ -1,8 +1,9 @@
-<div class="container">
-  <div class="title">
-    <h3>You are talking to: {{ otherUser }}</h3>
-  </div>
-  <div class="messages" *ngFor="let message of messages">
+<div
+  #container
+  class="container"
+  [ngClass]="{ defaultBackgroundImage: 'selectedNumberOfBackgroundImage' }"
+>
+  <div class="messages" *ngFor="let message of messages" #target>
     <app-message [own]="message.own" [text]="message.text"></app-message>
   </div>
   <div class="user-input">

@@ -13,6 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ToastrModule } from 'ngx-toastr';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -81,6 +82,7 @@ const socketConfig: SocketIoConfig = {
     MatDatepickerModule,
     MatNativeDateModule,
     FormsModule,
+    ColorPickerModule,
     ToastrModule.forRoot(),
     SocketIoModule.forRoot(socketConfig),
   ],

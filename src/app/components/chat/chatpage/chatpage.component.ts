@@ -30,6 +30,7 @@ export class ChatpageComponent implements OnInit, OnDestroy {
 
   messagesOfSelectedConvo: Message[] | undefined = undefined;
   selectedConvoId: string | undefined = undefined;
+  selectedNumberOfBackgroundImage: number | undefined = undefined;
 
   destroy$: Subject<boolean> = new Subject();
 
@@ -111,5 +112,9 @@ export class ChatpageComponent implements OnInit, OnDestroy {
           }
         },
       });
+  }
+
+  changeBackgroundImage(bckNumber: number) {
+    this.selectedNumberOfBackgroundImage = bckNumber;
   }
 }

@@ -9,11 +9,15 @@
     <app-chat-box
       [messages]="messagesOfSelectedConvo"
       [convoId]="selectedConvoId"
+      [backgroundImageNumber]="selectedNumberOfBackgroundImage"
       (newMessageEmmiter)="sendMessage($event)"
     ></app-chat-box>
   </div>
   <div class="chat-users" *ngIf="messagesOfSelectedConvo">
-    <app-chat-users-list></app-chat-users-list>
+    <app-chat-users-list
+      [convoId]="selectedConvoId"
+      (backgroundImageEmmiter)="changeBackgroundImage($event)"
+    ></app-chat-users-list>
   </div>
 </div>
 <div *ngIf="!allConnectedUsers">

@@ -17,3 +17,12 @@
   margin-top: 10px;
   height: 100%;
 }
+
+.container {
+  min-height: 90vh;
+}
+
+.defaultBackgroundImage {
+  background-image: url("../../../../assets/chat-backgrounds/background1.jpg");
+  background-size: contain;
+}

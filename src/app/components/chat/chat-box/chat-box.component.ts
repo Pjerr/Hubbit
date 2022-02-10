@@ -1,12 +1,18 @@
 import {
+  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
   Output,
+  Renderer2,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
@@ -18,11 +24,43 @@ import { SocketService } from 'src/app/services/socket.service';
   templateUrl: './chat-box.component.html',
   styleUrls: ['./chat-box.component.scss'],
 })
-export class ChatBoxComponent implements OnInit, OnDestroy {
-  constructor(private socketService: SocketService) {}
+export class ChatBoxComponent
+  implements OnInit, OnDestroy, OnChanges, AfterViewChecked
+{
+  constructor(
+    private socketService: SocketService,
+    private renderer2: Renderer2
+  ) {}
+
+  ngAfterViewChecked(): void {
+    console.log(this.container);
+    // if (this.backgroundImageNumber)
+    //   this.renderer2.setProperty(
+    //     this.container,
+    //     'background-image',
+    //     `../../../../assets/chat-backgrounds/background${this.backgroundImageNumber}.jpg`
+    //   );
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.container);
+    if (this.senderUsername) this.sortMessages(this.senderUsername);
+    if (this.backgroundImageNumber && this.container)
+      this.renderer2.setProperty(
+        this.container,
+        'background-image',
+        `../../../../assets/chat-backgrounds/background${this.backgroundImageNumber}.jpg`
+      );
+  }
 
   @Input() messages: any[] | undefined = undefined;
   @Input() convoId: string | undefined = undefined;
+  @Input() backgroundImageNumber: number | undefined = undefined;
+
+  @ViewChild('target') myScrollContainer: ElementRef = new ElementRef('target');
+
+  @ViewChild('container') container!: ElementRef;
+
   @Output() newMessageEmmiter = new EventEmitter<any>();
   first: boolean = true;
   otherUser: string | undefined = undefined;
@@ -50,6 +88,12 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
         });
 
       this.senderUsername = username;
+      this.sortMessages(username);
+    }
+  }
+
+  sortMessages(username: string) {
+    if (this.messages)
       this.messages = this.messages.map((msg: Message) => {
         if (msg.sender === username) {
           return { ...msg, own: true };
@@ -61,7 +105,6 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
           return { ...msg, own: false };
         }
       });
-    }
   }
 
   ngOnDestroy(): void {
@@ -87,5 +130,16 @@ export class ChatBoxComponent implements OnInit, OnDestroy {
       this.newMessageEmmiter.emit(objectForDbAndSocket);
       this.messageToSend.setValue('');
     }
+  }
+
+  //TODO: FIX
+  scrollToBottom() {
+    this.myScrollContainer.nativeElement.scroll({
+      top: this.myScrollContainer.nativeElement.scrollHeight,
+
+      left: 0,
+
+      behavior: 'smooth',
+    });
   }
 }

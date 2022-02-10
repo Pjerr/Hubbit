@@ -1,9 +1,23 @@
 <div class="container-fluid">
-  <p>chat-users-list works!</p>
-  <p>
-    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci numquam
-    pariatur temporibus in fugiat dolorum obcaecati unde ullam nobis voluptate
-    eaque, aut perferendis reiciendis quas, ducimus, libero aliquid repellendus
-    omnis?
-  </p>
+  <div class="search-message"></div>
+  <div class="convo-settings">
+    <h2>Pick a background</h2>
+    <div class="background-settings">
+      <img
+        *ngFor="let number of numbers"
+        class="background"
+        [src]="
+          '../../../../assets/chat-backgrounds/background' + number + '.jpg'
+        "
+        (click)="setBackground(number)"
+      />
+    </div>
+    <h2>Pick a color for friends bubble</h2>
+    <div class="bubble-settings">
+      <input [(colorPicker)]="color" [style.background]="color" />
+      <button class="btn btn-success my-2" (click)="changeColor()">
+        Change color
+      </button>
+    </div>
+  </div>
 </div>
