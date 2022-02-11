@@ -31,10 +31,11 @@ export class UsersVisitProfileViewService {
     );
   }
 
-  updateUserProfile(username: string, aboutMe: string) {
+  //change = "aboutMe" || "gender"
+  updateUserProfile(username: string, change: string, attribute: string) {
     return this.httpClient.put(
       `${environment.apiURL}usersVisitProfile/updateUserProfile`,
-      { username, aboutMe }
+      { username, change, attribute }
     );
   }
 

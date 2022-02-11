@@ -40,6 +40,7 @@ import { OrderByPipe } from './pipes/order-by.pipe';
 import { AgePipe } from './pipes/age.pipe';
 import { UserViewComponent } from './components/user-view/user-view.component';
 import { GenderPipe } from './pipes/gender.pipe';
+import { ModalModule } from './components/_modal';
 
 const socketConfig: SocketIoConfig = {
   url: environment.socketURL,
@@ -83,6 +84,7 @@ const socketConfig: SocketIoConfig = {
     MatNativeDateModule,
     FormsModule,
     ColorPickerModule,
+    ModalModule,
     ToastrModule.forRoot(),
     SocketIoModule.forRoot(socketConfig),
   ],

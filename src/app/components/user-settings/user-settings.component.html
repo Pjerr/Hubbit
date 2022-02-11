@@ -1,10 +1,40 @@
-<div class="card" *ngIf="userVisitProfileView | async as user">
+<jw-modal id="modal">
+  <div class="update-fields">
+    <h3>Click a filed you want to update</h3>
+    <mat-radio-group
+      aria-label="Select an option"
+      class="radio-group my-2"
+      (change)="selectField($event.value)"
+    >
+      <mat-radio-button value="gender">Gender</mat-radio-button>
+      <mat-radio-button value="aboutMe">About me</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <form *ngIf="change" (ngSubmit)="updateUser()">
+    <p *ngIf="change === 'gender'" class="my-3">Enter <b>m | f | o</b></p>
+    <div class="input-group mb-3 my-2">
+      <input
+        type="text"
+        class="form-control"
+        [placeholder]="change"
+        [formControl]="attribute"
+      />
+    </div>
+    <button class="btn btn-success my-2" type="submit">Update</button>
+  </form>
+
+  <div class="buttons">
+    <button class="btn btn-danger" (click)="closeModal('modal')">Back</button>
+  </div>
+</jw-modal>
+
+<div class="card" *ngIf="userVisitProfileView as user">
   <img
     [src]="'http://localhost:5000/' + user.profilePic"
     class="card-img-top"
     alt="image"
   />
-  <button class="btn btn-secondary">Update profile</button>
   <div class="card-body">
     <h2 class="card-title">{{ user.fullName }}, {{ user.dob | age }}</h2>
     <h4 class="card-text">
@@ -40,5 +70,8 @@
         </ul>
       </div>
     </div>
+    <button class="btn btn-secondary" (click)="openModal('modal')">
+      Update profile
+    </button>
   </div>
 </div>
