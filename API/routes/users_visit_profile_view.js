@@ -92,6 +92,34 @@ router.put("/updateUserProfile", (req, res) =>
     
 })
 
+router.put("/updateUserInterests", (req, res) => 
+{
+    try
+    {
+        UserVisitsProfileModel.updateOne({ username : req.body.username }, { listInterests: req.body.listInterests }, (err, result) => 
+        {
+            if(err)
+                res.status(500).send(err);
+            else 
+            {
+                UsersAlgorithmView.updateOne({ username : req.body.username }, { listInterests: req.body.listInterests }, (err, result) => 
+                {
+                    if(err)
+                        res.status(500).send(err);
+                    else 
+                    {
+                        res.status(200).send(result);
+                    }
+                })
+            }
+        })
+    }
+    catch(ex)
+    {
+        res.status(500).send(ex)
+    }
+})
+
 
 router.delete("/deleteUser", (req,res)=>{
 
