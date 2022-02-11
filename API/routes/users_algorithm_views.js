@@ -129,8 +129,16 @@ router.get("/getForUser", async (req, res) => {
                     {
                       $and: [
                         { username: { $in: usernameList } },
-                        { listBlocked: { $ne: req.query.username } },
-                        { listLeftSwipes: { $ne: req.query.username } },
+                        {
+                          listBlocked: {
+                            $ne: { username: req.query.username },
+                          },
+                        },
+                        {
+                          listLeftSwipes: {
+                            $ne: { username: req.query.username },
+                          },
+                        },
                       ],
                     },
                     { username: 1, _id: 0 },
@@ -168,12 +176,12 @@ router.get("/getForUser", async (req, res) => {
                             if (!err) {
                               res.status(200).send(result);
                             } else {
-                              res.status(500).send("Smth went wrong....Sowy");
+                              res.status(500).send();
                             }
                           }
                         );
                       } else {
-                        res.status(200).send("Nema potential matches");
+                        res.status(200).send();
                       }
 
                       //valjda nepotrebno - ovo je napisano pre nego sto sam ovo za interese obradila onim glomaznim queryem
@@ -195,14 +203,14 @@ router.get("/getForUser", async (req, res) => {
             }
           );
         } else {
-          res.status(500).send("unable to get by relationships for user");
+          res.status(500).send();
         }
       }
     );
     //allAlgoUsers = await UsersAlgorithmView.find({});
     //res.status(200).send(allAlgoUsers);
   } catch (err) {
-    res.status(500).send("Error algo users /getForUser");
+    res.status(500).send();
   }
 });
 
