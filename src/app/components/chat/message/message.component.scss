@@ -9,11 +9,6 @@
   align-items: flex-end;
 }
 
-.own .message-text {
-  background-color: rgb(219, 214, 214);
-  color: black;
-}
-
 .message-top {
   display: flex;
 }
@@ -24,9 +19,13 @@
   border-radius: 50%;
 }
 
-.message-text {
+.other-text,
+.my-text {
   padding: 10px;
   border-radius: 20px;
+}
+
+.other-text {
   background-color: #3375f0;
   color: white;
   max-width: 300px;
@@ -35,4 +34,9 @@
 .message-bottom {
   font-size: 12px;
   margin-bottom: 10px;
+}
+
+.my-text {
+  background-color: rgb(219, 214, 214);
+  color: black;
 }

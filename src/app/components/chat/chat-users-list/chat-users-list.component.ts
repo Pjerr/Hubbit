@@ -25,6 +25,7 @@ export class ChatUsersListComponent implements OnInit, OnDestroy {
 
   @Input() convoId: string | undefined = undefined;
   @Output() backgroundImageEmmiter: EventEmitter<number> = new EventEmitter();
+  @Output() bubbleColorEmmiter: EventEmitter<string> = new EventEmitter();
 
   destroy$: Subject<boolean> = new Subject();
 
@@ -40,7 +41,7 @@ export class ChatUsersListComponent implements OnInit, OnDestroy {
   }
 
   changeColor() {
-    console.log(this.color);
+    this.bubbleColorEmmiter.emit(this.color);
   }
 
   searchMessages() {

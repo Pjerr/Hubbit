@@ -34,6 +34,7 @@ export class ChatpageComponent implements OnInit, OnDestroy {
   selectedConvoId: string | undefined = undefined;
   selectedPathOfBackgroundImage: string =
     '../../../../assets/chat-backgrounds/background1.jpg';
+  selectedBubbleColor: string = '#3375f0';
 
   destroy$: Subject<boolean> = new Subject();
 
@@ -68,7 +69,7 @@ export class ChatpageComponent implements OnInit, OnDestroy {
     }
   }
 
-  loadBackgroundImageFromDB() {
+  loadBackgroundImageAndBubbleColorFromDB() {
     if (this.selectedConvoId) {
       this.conversationSettingsService
         .getSpecificConverastionSettings(this.selectedConvoId)
@@ -80,6 +81,7 @@ export class ChatpageComponent implements OnInit, OnDestroy {
             else
               this.selectedPathOfBackgroundImage =
                 '../../../../assets/chat-backgrounds/background1.jpg';
+            this.selectedBubbleColor = data[0].bubbleColour;
           },
         });
     }
@@ -104,7 +106,7 @@ export class ChatpageComponent implements OnInit, OnDestroy {
               .subscribe({
                 next: (result: any) => {
                   this.messagesOfSelectedConvo = result;
-                  this.loadBackgroundImageFromDB();
+                  this.loadBackgroundImageAndBubbleColorFromDB();
                 },
                 error: () => {
                   console.log('Error kod get messages');
@@ -159,5 +161,16 @@ export class ChatpageComponent implements OnInit, OnDestroy {
         });
   }
 
-  changeBubbleColor(color: number) {}
+  changeBubbleColor(color: string) {
+    if (this.selectedConvoId)
+      this.conversationSettingsService
+        .updateConversationSettings(this.selectedConvoId, 'bubble', color, '')
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          complete: () => {
+            this.selectedBubbleColor = color;
+            console.log('BUBBLE COLOR CHANGED!');
+          },
+        });
+  }
 }

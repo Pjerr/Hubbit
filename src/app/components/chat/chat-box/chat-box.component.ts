@@ -31,6 +31,7 @@ export class ChatBoxComponent
     private socketService: SocketService,
     private renderer2: Renderer2
   ) {}
+
   ngAfterViewInit(): void {
     this.styleBackground();
   }
@@ -63,8 +64,7 @@ export class ChatBoxComponent
   @Input() messages: any[] | undefined = undefined;
   @Input() convoId: string | undefined = undefined;
   @Input() backgroundImagePath: string | undefined = undefined;
-
-  @ViewChild('target') myScrollContainer: ElementRef = new ElementRef('target');
+  @Input() bubbleColor: string | undefined = undefined;
 
   @ViewChild('container') container!: ElementRef;
 
@@ -137,16 +137,5 @@ export class ChatBoxComponent
       this.newMessageEmmiter.emit(objectForDbAndSocket);
       this.messageToSend.setValue('');
     }
-  }
-
-  //TODO: FIX
-  scrollToBottom() {
-    this.myScrollContainer.nativeElement.scroll({
-      top: this.myScrollContainer.nativeElement.scrollHeight,
-
-      left: 0,
-
-      behavior: 'smooth',
-    });
   }
 }

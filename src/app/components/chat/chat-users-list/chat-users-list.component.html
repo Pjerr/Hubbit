@@ -16,7 +16,11 @@
     <h2>Pick a color for friends bubble</h2>
     <div class="bubble-settings">
       <input [(colorPicker)]="color" [style.background]="color" />
-      <button class="btn btn-success my-2 mx-1" (click)="changeColor()">
+      <button
+        class="btn btn-success my-2 mx-1"
+        (click)="changeColor()"
+        [disabled]="color === ''"
+      >
         Change
       </button>
     </div>

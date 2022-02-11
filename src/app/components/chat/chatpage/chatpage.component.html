@@ -10,6 +10,7 @@
       [messages]="messagesOfSelectedConvo"
       [convoId]="selectedConvoId"
       [backgroundImagePath]="selectedPathOfBackgroundImage"
+      [bubbleColor]="selectedBubbleColor"
       (newMessageEmmiter)="sendMessage($event)"
     ></app-chat-box>
   </div>
@@ -17,6 +18,7 @@
     <app-chat-users-list
       [convoId]="selectedConvoId"
       (backgroundImageEmmiter)="changeBackgroundImage($event)"
+      (bubbleColorEmmiter)="changeBubbleColor($event)"
     ></app-chat-users-list>
   </div>
 </div>
