@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, take, takeUntil } from 'rxjs';
 import { Message } from 'src/app/models/chat/message';
+import { ConversationSettingsService } from 'src/app/services/conversation-settings.service';
 import { ConversationService } from 'src/app/services/conversation.service';
 import { MessagesService } from 'src/app/services/messages.service';
 import { SocketService } from 'src/app/services/socket.service';
@@ -14,6 +15,7 @@ import { UserRelationshipViewsService } from 'src/app/services/user-relationship
 export class ChatpageComponent implements OnInit, OnDestroy {
   constructor(
     private conversationService: ConversationService,
+    private conversationSettingsService: ConversationSettingsService,
     private userRelationshipsService: UserRelationshipViewsService,
     private messagesService: MessagesService,
     private socketService: SocketService
@@ -30,7 +32,8 @@ export class ChatpageComponent implements OnInit, OnDestroy {
 
   messagesOfSelectedConvo: Message[] | undefined = undefined;
   selectedConvoId: string | undefined = undefined;
-  selectedNumberOfBackgroundImage: number = 1;
+  selectedPathOfBackgroundImage: string =
+    '../../../../assets/chat-backgrounds/background1.jpg';
 
   destroy$: Subject<boolean> = new Subject();
 
@@ -60,32 +63,51 @@ export class ChatpageComponent implements OnInit, OnDestroy {
         smallerUsername = this.currentUsername;
         biggerUsername = username;
       }
-      this.conversationService
-        .getConvoForBothUsers(smallerUsername, biggerUsername)
+      this.getMessagesOfConvo(smallerUsername, biggerUsername);
+      // this.loadBackgroundImageFromDB();
+    }
+  }
+
+  loadBackgroundImageFromDB() {
+    if (this.selectedConvoId) {
+      this.conversationSettingsService
+        .getSpecificConverastionSettings(this.selectedConvoId)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
-          next: (result: any) => {
-            this.selectedConvoId = result[0]._id;
-          },
-          error: () => {
-            console.log('Error kod get convo');
-          },
-          complete: () => {
-            if (this.selectedConvoId)
-              this.messagesService
-                .getMessagesByConversation(this.selectedConvoId)
-                .pipe(takeUntil(this.destroy$))
-                .subscribe({
-                  next: (result: any) => {
-                    this.messagesOfSelectedConvo = result;
-                  },
-                  error: () => {
-                    console.log('Error kod get messages');
-                  },
-                });
+          next: (data: any) => {
+            this.selectedPathOfBackgroundImage = data[0].backgroundImage;
           },
         });
     }
+  }
+
+  getMessagesOfConvo(smallerUsername: string, biggerUsername: string) {
+    this.conversationService
+      .getConvoForBothUsers(smallerUsername, biggerUsername)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (result: any) => {
+          this.selectedConvoId = result[0]._id;
+        },
+        error: () => {
+          console.log('Error kod get convo');
+        },
+        complete: () => {
+          if (this.selectedConvoId)
+            this.messagesService
+              .getMessagesByConversation(this.selectedConvoId)
+              .pipe(takeUntil(this.destroy$))
+              .subscribe({
+                next: (result: any) => {
+                  this.messagesOfSelectedConvo = result;
+                  this.loadBackgroundImageFromDB();
+                },
+                error: () => {
+                  console.log('Error kod get messages');
+                },
+              });
+        },
+      });
   }
 
   sendMessage(objectForSend: any) {
@@ -115,6 +137,23 @@ export class ChatpageComponent implements OnInit, OnDestroy {
   }
 
   changeBackgroundImage(bckNumber: number) {
-    this.selectedNumberOfBackgroundImage = bckNumber;
+    const stringToSend = `../../../../assets/chat-backgrounds/background${bckNumber}.jpg`;
+    if (this.selectedConvoId)
+      this.conversationSettingsService
+        .updateConversationSettings(
+          this.selectedConvoId,
+          'image',
+          '',
+          stringToSend
+        )
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          complete: () => {
+            this.selectedPathOfBackgroundImage = stringToSend;
+            console.log('BCK IMAGE CHANGED!');
+          },
+        });
   }
+
+  changeBubbleColor(color: number) {}
 }

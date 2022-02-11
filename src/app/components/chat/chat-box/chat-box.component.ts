@@ -39,7 +39,7 @@ export class ChatBoxComponent
     this.renderer2.setStyle(
       this.container.nativeElement,
       'background-image',
-      `url(../../../../assets/chat-backgrounds/background${this.backgroundImageNumber}.jpg)`
+      `url(${this.backgroundImagePath})`
     );
 
     this.renderer2.setStyle(
@@ -62,7 +62,7 @@ export class ChatBoxComponent
 
   @Input() messages: any[] | undefined = undefined;
   @Input() convoId: string | undefined = undefined;
-  @Input() backgroundImageNumber: number | undefined = undefined;
+  @Input() backgroundImagePath: string | undefined = undefined;
 
   @ViewChild('target') myScrollContainer: ElementRef = new ElementRef('target');
 
