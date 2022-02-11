@@ -47,4 +47,11 @@ export class UsersVisitProfileViewService {
       { params: params }
     );
   }
+
+  updateUserInterests(username: string, listInterests: string[]) {
+    return this.httpClient.put(
+      `${environment.apiURL}usersVisitProfile/updateUserInterests`,
+      { username, listInterests }
+    );
+  }
 }

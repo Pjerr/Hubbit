@@ -99,6 +99,35 @@ router.put("/updateUserProfile", (req, res) => {
   }
 });
 
+router.put("/updateUserInterests", (req, res) => {
+  try {
+    UserVisitsProfileModel.updateOne(
+      { username: req.body.username },
+      { listInterests: req.body.listInterests },
+      (err, result) => {
+        if (err)
+          res
+            .status(500)
+            .send({ msg: "Petar ne voli stringove u statusima" + err });
+        else {
+          UsersAlgorithmView.updateOne(
+            { username: req.body.username },
+            { listInterests: req.body.listInterests },
+            (err, result) => {
+              if (err) res.status(500).send({ msg: "boo. a string" + err });
+              else {
+                res.status(200).send(result);
+              }
+            }
+          );
+        }
+      }
+    );
+  } catch (ex) {
+    res.status(500).send({ msg: "Error with updateUserProfile " + ex });
+  }
+});
+
 router.delete("/deleteUser", (req, res) => {
   UserVisitsProfileModel.deleteOne(
     { username: req.query.username },

@@ -25,7 +25,35 @@
   </form>
 
   <div class="buttons">
-    <button class="btn btn-danger" (click)="closeModal('modal')">Back</button>
+    <button class="btn btn-danger my-3" (click)="closeModal('modal')">
+      Back
+    </button>
+  </div>
+</jw-modal>
+
+<jw-modal id="modal-interests">
+  <h2>Please pick 3 interests</h2>
+  <section class="checkbox-section" *ngIf="allInterests">
+    <mat-checkbox
+      *ngFor="let interest of allInterests | orderBy: 'category'"
+      class="example-margin"
+      (change)="toggleChecked($event.checked, interest.category, 'int')"
+      [disabled]="
+        listOfInterests.length === 3 &&
+        shouldDisableCheckbox(listOfInterests, interest.category)
+      "
+      >{{ interest.category }}</mat-checkbox
+    >
+  </section>
+
+  <div class="buttons">
+    <button class="btn btn-success" (click)="updateInterests()">Update</button>
+    <button
+      class="btn btn-danger my-3 mx-2"
+      (click)="closeModal('modal-interests')"
+    >
+      Back
+    </button>
   </div>
 </jw-modal>
 
@@ -72,6 +100,13 @@
     </div>
     <button class="btn btn-secondary" (click)="openModal('modal')">
       Update profile
+    </button>
+
+    <button
+      class="btn btn-secondary mx-3"
+      (click)="openModal('modal-interests')"
+    >
+      Update interests
     </button>
   </div>
 </div>
