@@ -20,7 +20,17 @@ export class MessagesService {
     params = params.append('conversationId', conversationID);
     return this.httpClient.get(
       `${environment.apiURL}messages/getMessagesByConversation`,
-      { params: params }
+      { params }
+    );
+  }
+
+  findSpecificMessage(conversationID: string, pattern: string) {
+    let params = new HttpParams();
+    params = params.append('conversationId', conversationID);
+    params = params.append('pattern', pattern);
+    return this.httpClient.get(
+      `${environment.apiURL}messages/findSpecificMessage`,
+      { params }
     );
   }
 }

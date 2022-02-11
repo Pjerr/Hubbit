@@ -75,7 +75,11 @@ export class ChatpageComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (data: any) => {
-            this.selectedPathOfBackgroundImage = data[0].backgroundImage;
+            if (data[0].backgroundImage !== 'default')
+              this.selectedPathOfBackgroundImage = data[0].backgroundImage;
+            else
+              this.selectedPathOfBackgroundImage =
+                '../../../../assets/chat-backgrounds/background1.jpg';
           },
         });
     }
