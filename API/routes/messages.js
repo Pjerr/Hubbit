@@ -28,4 +28,21 @@ router.get("/getMessagesByConversation", async (req, res) => {
   );
 });
 
+
+router.get("/findSpecificMessage", async (req,res)=>{
+  MessageModel.find({
+    $and : [{conversationId : req.query.conversationId},
+            {$text : `/${req.query.pattern}/`}]
+  },(err,result)=>{
+    if(!err)
+    {
+      res.status(200).send(result);
+    }
+    else
+    {
+      res.status(500).send({msg : "error with message find"});
+    }
+
+  })
+})
 module.exports = router;

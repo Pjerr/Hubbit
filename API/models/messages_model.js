@@ -12,5 +12,7 @@ const messages_model = new mongoose.Schema(
     {timestamps : true}
 );
 
+messages_model.index({conversationId:1}, {unique : false});
+
 
 module.exports = mongoose.model("messages",messages_model);
