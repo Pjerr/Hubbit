@@ -32,7 +32,7 @@ router.get("/getMessagesByConversation", async (req, res) => {
 router.get("/findSpecificMessage", async (req,res)=>{
   MessageModel.find({
     $and : [{conversationId : req.query.conversationId},
-            {$text : `/${req.query.pattern}/`}]
+            {text : `/${req.query.pattern}/`}]
   },(err,result)=>{
     if(!err)
     {
