@@ -25,11 +25,11 @@ const Settings = require("./routes/conversation_settings");
 const authFunc = require("./auth").authenticateJWTToken;
 
 rootRouter.use("/usersCredentials", CredentialsUser);
+rootRouter.use("/interests", Interests);
 rootRouter.use(authFunc);
 rootRouter.use("/usersVisitProfile", UsersVisitProfileRouter);
 rootRouter.use("/conversations", ConversationsRouter);
 rootRouter.use("/messages", MessagesRouter);
-rootRouter.use("/interests", Interests);
 rootRouter.use("/usersAlgorithms", AlgoUserRouter);
 rootRouter.use("/usersRecommendation", UserRecommendation);
 rootRouter.use("/usersRelationships", UserRelationships);

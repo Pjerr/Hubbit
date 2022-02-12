@@ -162,7 +162,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
           (inte: Interest) => inte.category
         ),
         listTurnOns: this.listOfTurnOns.map((inte: Interest) => inte.category),
-        profilePic: '../../../assets/user-avatar.png',
+        profilePic: 'pictures/profile-pictures/user-avatar.png',
       };
 
       this.registerEventEmmiter.emit(objForRegister);

@@ -145,14 +145,11 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
   }
 
   updateInterests() {
-    console.log(this.listOfInterests);
     const forSend = this.listOfInterests.map(
       (interest: Interest) => interest.category
     );
     const username = localStorage.getItem('username');
 
-    console.log(forSend);
-    console.log(username);
     if (username && forSend) {
       this.userVisitProfileService
         .updateUserInterests(username, forSend)
@@ -164,6 +161,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
               'Success'
             );
             this.modalService.close('modal-interests');
+            this.listOfInterests = [];
             this.loadUser(username);
           },
         });
