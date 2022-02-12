@@ -5,6 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserLoginDto } from '../models/user/userLoginDto';
+import { UserRegisterDto } from '../models/user/userRegisterDto';
 import { UsersCredentialsViews } from '../models/user/users_credentials_views_model';
 import { SocketService } from './socket.service';
 import { UserCredentialsViewsService } from './user-credentials-views.service';
@@ -52,14 +53,14 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  register(newUser: UsersCredentialsViews) {
+  register(newUser: UserRegisterDto) {
     return this.userCredentialsService.createNewUserCredentials(newUser).pipe(
-      map((token: any) => {
-        if (token != '') {
-          localStorage.setItem('token', token);
+      map((response: any) => {
+        if (response.token != '') {
+          localStorage.setItem('token', response.token);
           localStorage.setItem('username', newUser.username);
         }
-        return token;
+        return response.token;
       })
     );
   }

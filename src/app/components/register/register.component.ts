@@ -35,12 +35,21 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   //TODO: Validators.required
   registerFormUserDetails: FormGroup = new FormGroup({
-    username: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
-    name: new FormControl('', Validators.required),
-    surname: new FormControl('', Validators.required),
-    dob: new FormControl(undefined, Validators.required),
+    username: new FormControl(''),
+    password: new FormControl(''),
+    email: new FormControl(''),
+    name: new FormControl(''),
+    surname: new FormControl(''),
+    dob: new FormControl(''),
+    gender: new FormControl(''),
+    listPreferedGenders: new FormControl(''), //REQUIRES PARSING
+    aboutMe: new FormControl(''),
+  });
+
+  registerFormLocationDetails: FormGroup = new FormGroup({
+    userLocation: new FormControl(''), //TO UPPERCASE()
+    listPreferedLocations: new FormControl(''),
+    longDistance: new FormControl(''),
   });
 
   listOfInterests: Interest[] = [];
@@ -120,20 +129,40 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   register() {
     if (this.registerFormUserDetails.valid && this.areListsValid()) {
-      // console.log(this.registerFormUserDetails.value);
-      // console.log('INTERESTS');
-      // console.log(this.listOfInterests);
-      // console.log('TURN ONS');
-      // console.log(this.listOfTurnOns);
-      // console.log('TURN OFFS');
-      // console.log(this.listOfTurnOffs);
-      // console.log('REGISTERING');
+      const prefGendersArray =
+        this.registerFormUserDetails.value.listPreferedGenders.split(' ');
+
+      let prefLocationsArray =
+        this.registerFormLocationDetails.value.listPreferedLocations
+          .split(',')
+          .map((m: string) => m.toUpperCase());
+
+      const longDistance =
+        this.registerFormLocationDetails.value.longDistance === 'true'
+          ? true
+          : false;
 
       const objForRegister: UserRegisterDto = {
-        userDetails: this.registerFormUserDetails.value,
-        listOfInterests: this.listOfInterests,
-        listOfTurnOffs: this.listOfTurnOffs,
-        listOfTurnOns: this.listOfTurnOns,
+        username: this.registerFormUserDetails.value.username,
+        email: this.registerFormUserDetails.value.email,
+        password: this.registerFormUserDetails.value.password,
+        gender: this.registerFormUserDetails.value.gender,
+        fullName: `${this.registerFormUserDetails.value.name} ${this.registerFormUserDetails.value.surname}`,
+        listGenders: prefGendersArray,
+        longDistance: longDistance,
+        location:
+          this.registerFormLocationDetails.value.userLocation.toUpperCase(),
+        dob: this.registerFormUserDetails.value.dob,
+        listPrefLoc: prefLocationsArray,
+        aboutMe: this.registerFormUserDetails.value.aboutMe,
+        listInterests: this.listOfInterests.map(
+          (inte: Interest) => inte.category
+        ),
+        listTurnOffs: this.listOfTurnOffs.map(
+          (inte: Interest) => inte.category
+        ),
+        listTurnOns: this.listOfTurnOns.map((inte: Interest) => inte.category),
+        profilePic: '../../../assets/user-avatar.png',
       };
 
       this.registerEventEmmiter.emit(objForRegister);

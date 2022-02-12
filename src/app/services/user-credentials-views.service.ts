@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { UserRegisterDto } from '../models/user/userRegisterDto';
 import { UsersCredentialsViews } from '../models/user/users_credentials_views_model';
 
 @Injectable({
@@ -17,14 +18,10 @@ export class UserCredentialsViewsService {
     );
   }
 
-  createNewUserCredentials(newUserCredentials: UsersCredentialsViews) {
-    const passForHashing = newUserCredentials.password;
+  createNewUserCredentials(newUserCredentials: UserRegisterDto) {
     return this.httpClient.post(
       `${environment.apiURL}usersCredentials/createNewUserCredentials`,
-      {
-        passForHashing,
-        newUserCredentials,
-      }
+      { ...newUserCredentials }
     );
   }
 

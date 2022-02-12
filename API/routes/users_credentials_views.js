@@ -22,7 +22,7 @@ router.get("/specificUserCredentials", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   UserCredentials.findOne({ username: req.body.username }, (err, result) => {
-    if (!err) {
+    if (!err && result && result.password != undefined) {
       if (brcypt.compareSync(req.body.password, result.password)) {
         var token = generateJWTToken(req.body.username);
         res.status(200).send({ token });
@@ -61,57 +61,87 @@ router.post("/createNewUserCredentials", (req, res) => {
           listPrefLoc: req.body.listPrefLoc,
           location: req.body.location,
         };
-        createUserAlgorithmView(algoObject);
 
-        var recommendedObject = {
-          username: req.body.username,
-          dob: req.body.dob,
-          aboutMe: req.body.aboutMe,
-          profilePic: req.body.profilePic,
-          gender: req.body.gender,
-          listMatchedInterests: [],
-          location: req.body.location,
-        };
-        createRecommendedView(recommendedObject);
+        UsersAlgorithmView.create(algoObject, (err, result) => {
+          if (err) res.status(500).send({ msg: "Loso kod algoritam views" });
+          else {
+            var recommendedObject = {
+              username: req.body.username,
+              dob: req.body.dob,
+              aboutMe: req.body.aboutMe,
+              profilePic: req.body.profilePic,
+              gender: req.body.gender,
+              listMatchedInterests: [],
+              location: req.body.location,
+            };
 
-        var relationshipObject = {
-          username: req.body.username,
-          listContacts: [],
-          listBlocked: [],
-          listLeftSwipes: [],
-          listRightSwipes: [],
-        };
+            UserRecommendedViews.create(recommendedObject, (err, result) => {
+              if (err)
+                res.status(500).send({ msg: "Loso kod recommended views" });
+              else {
+                var relationshipObject = {
+                  username: req.body.username,
+                  listContacts: [],
+                  listBlocked: [],
+                  listLeftSwipes: [],
+                  listRightSwipes: [],
+                };
 
-        createRelationshipView(relationshipObject);
+                UserRelationship.create(relationshipObject, (err, result) => {
+                  if (err)
+                    res
+                      .status(500)
+                      .send({ msg: "Loso kod relationship views" });
+                  else {
+                    var searchObject = {
+                      username: req.body.username,
+                      fullName: req.body.fullName,
+                      dob: req.body.dob,
+                      profilePic: req.body.profilePic,
+                      gender: req.body.gender,
+                      location: req.body.location,
+                    };
 
-        var searchObject = {
-          username: req.body.username,
-          fullName: req.body.fullName,
-          dob: req.body.dob,
-          profilePic: req.body.profilePic,
-          gender: req.body.gender,
-          location: req.body.location,
-        };
+                    UserSearch.create(searchObject, (err, result) => {
+                      if (err)
+                        res.status(500).send({ msg: "Loso kod search views" });
+                      else {
+                        var profileViewObject = {
+                          username: req.body.username,
+                          fullName: req.body.fullName,
+                          dob: req.body.dob,
+                          aboutMe: req.body.aboutMe,
+                          profilePic: req.body.profilePic,
+                          gender: req.body.gender,
+                          listGenders: req.body.listGenders,
+                          listInterests: req.body.listInterests,
+                          listTurnOns: req.body.listTurnOns,
+                          listTurnOffs: req.body.listTurnOffs,
+                          longDistance: req.body.longDistance,
+                          listPrefLoc: req.body.listPrefLoc,
+                          location: req.body.location,
+                        };
 
-        createSearchView(searchObject);
-
-        var profileViewObject = {
-          username: req.body.username,
-          fullName: req.body.fullName,
-          dob: req.body.dob,
-          aboutMe: req.body.aboutMe,
-          profilePic: req.body.profilePic,
-          gender: req.body.gender,
-          listGenders: req.body.listGenders,
-          listInterests: req.body.listInterests,
-          listTurnOns: req.body.listTurnOns,
-          listTurnOffs: req.body.listTurnOffs,
-          longDistance: req.body.longDistance,
-          listPrefLoc: req.body.listPrefLoc,
-          location: req.body.location,
-        };
-
-        createVisitProfileView(profileViewObject);
+                        UserVisitsProfileModel.create(
+                          profileViewObject,
+                          (err, result) => {
+                            if (err)
+                              res
+                                .status(500)
+                                .send({ msg: "Loso kod visitProfile views" });
+                            else {
+                              res.status(200).send({ token });
+                            }
+                          }
+                        );
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
       }
     }
   );
@@ -141,31 +171,31 @@ router.delete("/deleteUserCredentials", (req, res) => {
   });
 });
 
-function createUserAlgorithmView(userObject) {
+async function createUserAlgorithmView(userObject) {
   UsersAlgorithmView.create(userObject, (err, result) => {
     if (err) return false;
     else return true;
   });
 }
-function createRecommendedView(userObject) {
+async function createRecommendedView(userObject) {
   UserRecommendedViews.create(userObject, (err, res) => {
     if (err) return false;
     else return true;
   });
 }
-function createRelationshipView(userObject) {
+async function createRelationshipView(userObject) {
   UserRelationship.create(userObject, (err, res) => {
     if (err) return false;
     else return true;
   });
 }
-function createSearchView(userObject) {
+async function createSearchView(userObject) {
   UserSearch.create(userObject, (err, res) => {
     if (err) return false;
     else return true;
   });
 }
-function createVisitProfileView(userObject) {
+async function createVisitProfileView(userObject) {
   UserVisitsProfileModel.create(userObject, (err, res) => {
     if (err) return false;
     else return true;

@@ -14,16 +14,6 @@
         <mat-label>Username</mat-label>
         <input matInput placeholder="Username" formControlName="username" />
       </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput placeholder="Email" formControlName="email" />
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="dob" />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>
@@ -34,6 +24,40 @@
           type="password"
         />
       </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Email" formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Date of birth</mat-label>
+        <input matInput placeholder="dd.MM.yyyy" formControlName="dob" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Gender</mat-label>
+        <input matInput placeholder="m | f | o" formControlName="gender" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Prefered genders</mat-label>
+        <input
+          matInput
+          placeholder="m f o"
+          formControlName="listPreferedGenders"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Tell us about you</mat-label>
+        <textarea
+          matInput
+          placeholder="Hello i am..."
+          formControlName="aboutMe"
+        ></textarea>
+      </mat-form-field>
+
       <div class="registerButtons">
         <button mat-button matStepperNext>Next</button>
       </div>
@@ -100,6 +124,42 @@
         >{{ interest.category }}</mat-checkbox
       >
     </section>
+    <div class="registerButtons">
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step
+    [stepControl]="registerFormUserPreferences"
+    label="Fill out location details"
+  >
+    <form [formGroup]="registerFormLocationDetails" class="userDetailsForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Your location</mat-label>
+        <input matInput placeholder="Beograd" formControlName="userLocation" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Prefered locations</mat-label>
+        <input
+          matInput
+          placeholder="Nis,Beograd,Leskovac,Novi Sad"
+          formControlName="listPreferedLocations"
+        />
+      </mat-form-field>
+
+      <p>Long distance?</p>
+      <mat-radio-group
+        aria-label="Select an option"
+        class="radio-group"
+        formControlName="longDistance"
+      >
+        <mat-radio-button value="true">Yes</mat-radio-button>
+        <mat-radio-button value="false">No</mat-radio-button>
+      </mat-radio-group>
+    </form>
+
     <div class="registerButtons">
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="register()">Done</button>

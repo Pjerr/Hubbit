@@ -6,6 +6,7 @@ import { UserLoginDto } from 'src/app/models/user/userLoginDto';
 import { UserRegisterDto } from 'src/app/models/user/userRegisterDto';
 import { AuthService } from 'src/app/services/auth.service';
 import { InterestsViewsService } from 'src/app/services/interests-views.service';
+import { UserCredentialsViewsService } from 'src/app/services/user-credentials-views.service';
 @Component({
   selector: 'app-welcome-page',
   templateUrl: './welcome-page.component.html',
@@ -15,7 +16,8 @@ export class WelcomePageComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private interestsViewsService: InterestsViewsService
+    private interestsViewsService: InterestsViewsService,
+    private userCredentialsService: UserCredentialsViewsService
   ) {}
 
   destroy$: Subject<boolean> = new Subject();
@@ -57,6 +59,11 @@ export class WelcomePageComponent implements OnInit, OnDestroy {
 
   register(userRegisterInfo: UserRegisterDto) {
     console.log(userRegisterInfo);
-    //API CALL
+    this.authService
+      .register(userRegisterInfo)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        complete: () => this.router.navigate(['user/main']),
+      });
   }
 }

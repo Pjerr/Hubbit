@@ -22,7 +22,7 @@ router.get("/getContactsForSpecificUser", (req, res) => {
     }
   });
 });
-
+//OVU RUTU I ZA CHAT BLOCK KORISTIMO
 router.get("/getAllBlockedUsersForSpecificUser", (req, res) => {
   UserRelationship.findOne({ username: req.query.username }, (err, result) => {
     if (!err) {
