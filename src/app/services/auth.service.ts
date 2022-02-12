@@ -1,12 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserLoginDto } from '../models/user/userLoginDto';
 import { UserRegisterDto } from '../models/user/userRegisterDto';
-import { UsersCredentialsViews } from '../models/user/users_credentials_views_model';
 import { SocketService } from './socket.service';
 import { UserCredentialsViewsService } from './user-credentials-views.service';
 

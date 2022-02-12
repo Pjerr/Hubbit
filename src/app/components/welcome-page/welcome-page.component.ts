@@ -58,7 +58,6 @@ export class WelcomePageComponent implements OnInit, OnDestroy {
   }
 
   register(userRegisterInfo: UserRegisterDto) {
-    console.log(userRegisterInfo);
     this.authService
       .register(userRegisterInfo)
       .pipe(takeUntil(this.destroy$))

@@ -6,7 +6,7 @@
       [bubbleColor]="bubbleColor"
     ></app-message>
   </div>
-  <div class="user-input">
+  <div class="user-input" *ngIf="!hasUserBlockedMe">
     <form>
       <div class="input-group mb-3">
         <input

@@ -78,7 +78,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   moveToUserViewPage(username: string) {
-    console.log(username);
     this.router.navigate(['/user/view'], {
       queryParams: {
         username,

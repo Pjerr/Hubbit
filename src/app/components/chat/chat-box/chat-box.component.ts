@@ -18,6 +18,7 @@ import { FormControl } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { Message } from 'src/app/models/chat/message';
 import { SocketService } from 'src/app/services/socket.service';
+import { UserRelationshipViewsService } from 'src/app/services/user-relationship-views.service';
 
 @Component({
   selector: 'app-chat-box',
@@ -29,7 +30,8 @@ export class ChatBoxComponent
 {
   constructor(
     private socketService: SocketService,
-    private renderer2: Renderer2
+    private renderer2: Renderer2,
+    private userRelationshipsService: UserRelationshipViewsService
   ) {}
 
   ngAfterViewInit(): void {
@@ -74,6 +76,7 @@ export class ChatBoxComponent
   senderUsername: string | undefined = undefined;
   messageToSend = new FormControl('');
   destroy$: Subject<boolean> = new Subject();
+  hasUserBlockedMe: boolean = false;
 
   ngOnInit(): void {
     const username = localStorage.getItem('username');
@@ -83,15 +86,17 @@ export class ChatBoxComponent
       this.socketService
         .listen('getMessage')
         .pipe(takeUntil(this.destroy$))
-        .subscribe((data: any) => {
-          let newMessage: any = {
-            conversationId: this.convoId,
-            text: data.text,
-            sender: data.senderUsername,
-          };
-          if (this.messages) {
-            this.messages.push(newMessage);
-          }
+        .subscribe({
+          next: (data: any) => {
+            let newMessage: any = {
+              conversationId: this.convoId,
+              text: data.text,
+              sender: data.senderUsername,
+            };
+            if (this.messages) {
+              this.messages.push(newMessage);
+            }
+          },
         });
 
       this.senderUsername = username;
@@ -99,8 +104,23 @@ export class ChatBoxComponent
     }
   }
 
+  checkIfUserHasBlockedMe(otherUser: string) {
+    this.userRelationshipsService
+      .getAllBlockedUsersForSpecificUser(otherUser)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data: any) => {
+          const foundUserIndex = data.findIndex(
+            (d: any) => d.username === this.senderUsername
+          );
+          if (foundUserIndex === -1) this.hasUserBlockedMe = false;
+          else this.hasUserBlockedMe = true;
+        },
+      });
+  }
+
   sortMessages(username: string) {
-    if (this.messages)
+    if (this.messages) {
       this.messages = this.messages.map((msg: Message) => {
         if (msg.sender === username) {
           return { ...msg, own: true };
@@ -112,6 +132,9 @@ export class ChatBoxComponent
           return { ...msg, own: false };
         }
       });
+
+      if (this.otherUser) this.checkIfUserHasBlockedMe(this.otherUser);
+    }
   }
 
   ngOnDestroy(): void {

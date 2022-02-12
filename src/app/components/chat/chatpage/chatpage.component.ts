@@ -156,7 +156,6 @@ export class ChatpageComponent implements OnInit, OnDestroy {
         .subscribe({
           complete: () => {
             this.selectedPathOfBackgroundImage = stringToSend;
-            console.log('BCK IMAGE CHANGED!');
           },
         });
   }
@@ -169,7 +168,6 @@ export class ChatpageComponent implements OnInit, OnDestroy {
         .subscribe({
           complete: () => {
             this.selectedBubbleColor = color;
-            console.log('BUBBLE COLOR CHANGED!');
           },
         });
   }
